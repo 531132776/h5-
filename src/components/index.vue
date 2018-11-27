@@ -7,8 +7,9 @@
       </header> -->
       <div class="location-chose">
           <span @click="isShowSort=true,isShowDevelopers=false,isShowArea=false">
-            {{$t('sortedBy')}}
-
+            
+            <i v-if="searchVal.filter==''">{{$t('sortedBy')}}</i>
+            <i v-if="searchVal.filter!=''">{{$t('sortedBy')}}{{searchVal.filter}}</i>
             <i class="icon-sanjiaoxing" :class="isShowSort==true?'color-primary':''"></i> 
           </span>
           <span @click="isShowDevelopers=true,isShowSort=false,isShowArea=false">
@@ -25,7 +26,11 @@
         <pull-to :top-load-method="refresh" class="spring-scroller" :on-refresh="refresh" :bottom-load-method="loadmore" :bottomConfig="bottomConfig" :topConfig='topConfig' style="height:84%;">
       <div class="developers-list">
           <div class="developers-list-section">
-            <ul >
+            <div class="space-notice" v-if="houseList==null || houseList.length==0">
+              <i class="icon-Artboard19"></i>
+              <p>NONE</p>
+            </div>
+            <ul v-else>
               <li v-for="(item,idx) in houseList" :key="idx">
                 <router-link :to="{path:'/detail',query:{'id':item.id}}" class="clearfix">
                   <div class="clearfix">
@@ -55,10 +60,7 @@
                 </router-link>
               </li>
             </ul>
-            <div class="space-notice" v-if="houseList==null || houseList.length==0">
-              <i class="icon-Artboard19"></i>
-              <p>NONE</p>
-            </div>
+            
           </div>
       </div>
     </pull-to>
@@ -77,9 +79,9 @@
       <div class="select-list">
         <ul>
           <li v-for="(item,idx) in sortList" :key="idx" @click="choseSort(item.value)" 
-          :class="item.value==searchVal.sort?'color-primary':''"
+          :class="item.value==searchVal.filter?'color-primary':''"
           >
-            <i class="icon-hook" v-if="item.value==searchVal.sort"></i>
+            <i class="icon-hook" v-if="item.value==searchVal.filter"></i>
             {{item.value}}
           </li>
         </ul>
@@ -134,7 +136,7 @@ export default {
         pageIndex:1,
         developers:'',
         area:'',
-        sort:'',
+        filter:'',
         token:this.token
       },
       pageInfo:{},
@@ -206,8 +208,11 @@ export default {
               if(loaded){
                 loaded('done');
               }
-              this.houseList = this.houseList.concat(res.data.dataSet);
-              this.pageInfo = res.data.pageInfo;
+              if(res.data.dataSet){
+                this.houseList = this.houseList.concat(res.data.dataSet);
+                this.pageInfo = res.data.pageInfo;
+              }
+
               // console.log( this.houseList);
             }
         }).catch(res=>{})     
@@ -235,7 +240,7 @@ export default {
     },
 
     choseSort(val){
-      this.searchVal.sort = val;
+      this.searchVal.filter = val;
       this.isShowSort = false;
       this.houseList = [];
       this.getDirectSalesPropertyList();

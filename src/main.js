@@ -48,8 +48,8 @@ Vue.filter('changeUnit', function(val) {
     }
 });
 
-let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiTm92IDI2LCAyMDE4IDc6MjE6NDIgUE0iLCJ1c2VySWQiOiI0NjA5IiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg1MDAwMTIyMjIifQ==.ZTMyMjY1ZjAzZTJmMzAyODFhZDQ2OGQ5YzQxYmQwZTJkNjQ5MTVhN2EzOWU2M2RiYWZmOWYzZTllNmFhNWM5Ng==&language=zh'
-// let str = window.location.href;
+// let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiTm92IDI2LCAyMDE4IDc6MjE6NDIgUE0iLCJ1c2VySWQiOiI0NjA5IiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg1MDAwMTIyMjIifQ==.ZTMyMjY1ZjAzZTJmMzAyODFhZDQ2OGQ5YzQxYmQwZTJkNjQ5MTVhN2EzOWU2M2RiYWZmOWYzZTllNmFhNWM5Ng==&language=zh'
+let str = window.location.href;
 let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
 let lang = str.substr(str.indexOf('&language=')+10,2);//截取语言
 i18n.locale = lang;
