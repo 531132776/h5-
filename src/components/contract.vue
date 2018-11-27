@@ -1,0 +1,162 @@
+<template>
+    <div class="page developers-page">
+        <!-- 导出为pdf的部分 -->
+        <!-- <div id="pdfDom"> -->
+            <!-- <header class="developers-header">
+                <router-link :to="{path:'/'}"><i class="icon-fanhui-copy1 gray"></i></router-link>
+                Real Estate Purchase Request Form
+            </header> -->
+            <p class="contract-date">Date: {{contractData.createTime}}</p>
+            <div class="section-1 contract-section">
+                <p class="section-title">CUSTOMER DETAILS</p>
+                <ul>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Last Name：{{contractData.familyName}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>First Name：{{contractData.name}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Nationality：{{contractData.nationality}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Passport Number：{{contractData.passportNumber}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Mobile Number：{{contractData.contactWay}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Email Address：{{contractData.email}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="section-1 contract-section">
+                <p class="section-title">PROJECT DETAILS</p>
+                <ul>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Project of Interes：{{projectData.projectName}}</span>
+                    </li>
+                    <li>
+                        <i class="warning">*</i>
+                        <span>Name of Developer：{{projectData.developers}}</span>
+                    </li>
+                </ul>
+            </div>  
+            <div class="section-1 contract-section">
+                <p class="section-title">AGENT DETAILS</p>
+                <ul>
+                    <li>
+                        <span>Agency Company Name：</span>
+                        UCF REAL ESTATE
+                    </li>
+                    <li>
+                        <span>Agency Company Office Registration Number</span>
+                        20666
+                    </li>
+                </ul>
+            </div>  
+            <div class="section-1 contract-section">
+                <ul>
+                    <li>
+                        1.I hereby confirm that UCF Real Estate is my Agency Company for purchasing real estate property from the above project for me;
+                    </li>
+                    <li>
+                        2.I shall duly inform the developer that UCF Real Estate is my Agency Company as stated in clause 1 above;
+                    </li>
+                    <li>
+                        3.I understand and accept that THE CASH BACK  option will be available only after UCF Real Estate received commission payment from the developer of the project from which I intent to purchase real estate property; 
+                    </li>
+                    <li>
+                        4.I understand and accept that UCF Real Estate will pay THE CASH BACK  amount within fourteen (14) working days after UCF Real Estate received the corresponding commission from the developer.
+                    </li>
+                </ul>
+                <router-link :to="{path:'/sign',query:{'projectId':this.$route.query.projectId,'id':this.$route.query.id},}" style="display:block;margin:0.41rem 0;cursor: pointer;padding-bottom: 0.36rem;" replace> 
+                    <div class="section-1 contract-section">
+                            <p class="section-title" >Customer Signature:_________________</p>
+                    </div>  
+                </router-link>
+            </div>  
+
+            
+            <img :src="canvasImg" alt="" id="canvasImg"> 
+        <!-- </div> 
+          -->
+        <div class="footer">
+            <a href="javascript:;" class="button1 bg-primary" @click="update()">{{$t('Submit')}}</a>
+        </div>        
+    </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+            contractData:{},
+            isShowSign:false,
+            canvasImg:'',
+            projectData: JSON.parse( sessionStorage.getItem('projectData') ) ,
+            fileurl:''
+        }
+    },
+    created() {
+        
+    },
+    mounted() {
+        this.getNewBuildingMemberApply(); 
+        if( this.$route.query.type && this.$route.query.type=='signed'){
+            window.scrollTo(0,document.body.scrollHeight);//滚动到页面底部
+            if( sessionStorage.getItem('signData') ) {
+                this.fileurl = JSON.parse(sessionStorage.getItem('signData')).fid;
+                this.canvasImg = JSON.parse(sessionStorage.getItem('signData')).url;
+            }  
+        }else{
+            this.fileurl = "";
+            this.canvasImg = "";
+        }     
+    },
+    methods:{
+        getNewBuildingMemberApply(){ //获取开发商直售楼盘个人信息
+            console.log( this.$route.query.projectId )
+            this.$axios.post(`/api/exterior/member/getNewBuildingMemberApply`,this.$qs.stringify({'projectId':this.$route.query.projectId,'token':this.token}) ).then(res=>{
+                if(res.data.result==0){
+                    this.contractData = res.data.dataSet;
+                    this.contractData.createTime = this.contractData.createTime? this.contractData.createTime.split(' ')[0].split('-').reverse().join('/'):"";
+                    console.log( this.contractData.createTime )
+                }
+            }).catch(res=>{}) 
+        },
+        update(){
+            if(this.canvasImg==''){
+                this.$vux.alert.show({
+                    title: 'Tips',
+                    content: 'Please sign your name',
+                    buttonText:'OK',
+                    onShow () {
+                    },
+                    onHide () {
+                    }
+                }) 
+                return false;               
+            }else{
+                this.$axios.post(`/api/exterior/member/saveNewBuildingMemberApply`,
+                this.$qs.stringify({'id':this.$route.query.id,'token':this.token,signature:this.fileurl})
+                ).then(res=>{
+                    if(res.data.result==0){
+                        this.$router.push({path:'/contractApplyResult',query:
+                        {'projectId':this.$route.query.projectId,'id':this.$route.query.id}})
+                    }
+                }).catch(res=>{})    
+            }
+        }
+    },
+    
+}
+</script>
+
