@@ -9,7 +9,7 @@
           <span @click="isShowSort=true,isShowDevelopers=false,isShowArea=false">
             
             <i v-if="searchVal.filter==''">{{$t('sortedBy')}}</i>
-            <i v-if="searchVal.filter!=''">{{$t('sortedBy')}}{{searchVal.filter}}</i>
+            <i v-if="searchVal.filter!=''">{{$t('sortedBy')}} {{searchVal.filter}}</i>
             <i class="icon-sanjiaoxing" :class="isShowSort==true?'color-primary':''"></i> 
           </span>
           <span @click="isShowDevelopers=true,isShowSort=false,isShowArea=false">
@@ -82,7 +82,7 @@
           :class="item.value==searchVal.filter?'color-primary':''"
           >
             <i class="icon-hook" v-if="item.value==searchVal.filter"></i>
-            {{item.value}}
+            {{item.text}}
           </li>
         </ul>
       </div>
@@ -136,7 +136,7 @@ export default {
         pageIndex:1,
         developers:'',
         area:'',
-        filter:'',
+        filter:null,
         token:this.token
       },
       pageInfo:{},
@@ -144,7 +144,8 @@ export default {
       isShowSort:false,
       isShowDevelopers:false,
       isShowArea:false,
-      sortList:[{'value': null, 'text': '请选择'},
+      sortList:[
+            {'value': null, 'text': '全部'},
             {value: 'A', text: 'A'},
             {value: 'B', text: 'B'},
             {value: 'C', text: 'C'},
