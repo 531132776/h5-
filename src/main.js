@@ -9,7 +9,7 @@ import router from './router'
 import store from './store'
 
 
-import { PopupPicker,Group,XInput ,Datetime,Popup ,TransferDom,Alert ,AlertPlugin,Icon,Loading  ,LoadingPlugin ,Toast ,ToastPlugin ,Selector } from 'vux'
+import { PopupPicker,Group,XInput ,Datetime,Popup ,TransferDom,Alert ,AlertPlugin,Icon,Loading  ,LoadingPlugin ,Toast ,ToastPlugin ,Selector,Checklist ,,Checker, CheckerItem  } from 'vux'
 Vue.component('popup-picker', PopupPicker);
 Vue.component('Group', Group);
 Vue.component('x-input', XInput );
@@ -20,6 +20,9 @@ Vue.component('icon', Icon);
 Vue.component('loading', Loading);
 Vue.component('toast', Toast);
 Vue.component('selector', Selector);
+Vue.component('checklist', Checklist);
+Vue.component('checker', Checker);
+Vue.component('checker-item', CheckerItem);
 Vue.directive('transfer-dom', TransferDom)
 Vue.use(AlertPlugin);
 Vue.use(LoadingPlugin);
@@ -48,13 +51,16 @@ Vue.filter('changeUnit', function(val) {
     }
 });
 
-let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiTm92IDI2LCAyMDE4IDc6MjE6NDIgUE0iLCJ1c2VySWQiOiI0NjA5IiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg1MDAwMTIyMjIifQ==.ZTMyMjY1ZjAzZTJmMzAyODFhZDQ2OGQ5YzQxYmQwZTJkNjQ5MTVhN2EzOWU2M2RiYWZmOWYzZTllNmFhNWM5Ng==&language=zh'
-// let str = window.location.href;
+// let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiRGVjIDEsIDIwMTggMjoyMToyOCBQTSIsInVzZXJJZCI6IjQ2MDkiLCJhcmVhQ29kZSI6Ijg2IiwibW9ibGUiOiIxODUwMDAxMjIyMiJ9.OGUxMTJhZTdhMTdjYTBlZGVhNjdjMTQzZjlmMjEwNzZiZmM0ZDU2NjAxMDUwMDVhNTgwZjAzYjMyMWNmMTFmMg==&language=zh&city=shenzhen'
+let str = window.location.href;
 let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
 let lang = str.substr(str.indexOf('&language=')+10,2);//截取语言
+let city = str.substr(str.indexOf('&city=')+6);//截取城市
 i18n.locale = lang;
+
 Vue.prototype.token = token;
 Vue.prototype.lang = lang;
+Vue.prototype.city = city;
 axios.defaults.withCredentials = true;
  
 //图片懒加载

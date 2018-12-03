@@ -74,6 +74,7 @@ export default {
     p_passportNumber:'please fill in passport number',
     p_telephone:'please fill in telephone',
     p_email:'please fill in email',
+    p_emailC:'Please fill in the correct email address',
     p_sex:'please select gender',
     p_birth:'please select date of birth',
     p_marrige:'please select married or not',

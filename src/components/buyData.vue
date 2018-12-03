@@ -30,9 +30,9 @@
             </div>
             <x-input :title="$t('passportNumber')" v-model="saveData.passportNumber" :placeholder="$t('pleaseenter')"></x-input>
 
-            <x-input :title="$t('Telephone')" v-model="saveData.contactWay" :placeholder="$t('pleaseenter')"></x-input>
+            <x-input :title="$t('Telephone')" v-model="saveData.contactWay" :placeholder="$t('pleaseenter')" type="number"></x-input>
 
-            <x-input :title="$t('email')" v-model="saveData.email" :placeholder="$t('pleaseenter')"></x-input>
+            <x-input :title="$t('email')" v-model="saveData.email" :placeholder="$t('pleaseenter')"  ></x-input>
         </group>
         <group :title="$t('ProjectDetail')" label-width="5em">
             <x-input :title="$t('ProjectName')" v-model="projectData.projectName" :placeholder="$t('pleaseenter')" :readonly="true"></x-input>
@@ -121,9 +121,16 @@ export default {
                 this.ErrorMsg = this.$t('p_telephone');
                 this.alertTips();
                 return false;
-            }else if( this.saveData.email=='' ){
-                this.ErrorMsg = this.$t('p_email');
-                this.alertTips();
+            }else if( this.saveData.email=='' || !this.saveData.email.match(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/)){
+
+                if(this.saveData.email==''){
+                    this.ErrorMsg = this.$t('p_email');
+                }else{
+                    this.ErrorMsg = this.$t('p_emailC');
+                    this.saveData.email = ""
+                }
+                
+                this.alertTips();                
                 return false;
             }else{
                 return true;

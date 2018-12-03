@@ -35,7 +35,7 @@
             </ul>
             <div class="space-notice" v-if="houseList==null || houseList.length==0">
                 <i class="icon-Artboard19"></i>
-                <p>暂无</p>
+                <p>NONE</p>
             </div>
             </div>
         </div>
@@ -93,7 +93,7 @@ export default {
                     }
                     this.houseList = this.houseList.concat(res.data.dataSet);
                     this.pageInfo = res.data.pageInfo;
-                    console.log( this.houseList )
+                    // console.log( this.houseList )
                 }
             }).catch(res=>{})
         },

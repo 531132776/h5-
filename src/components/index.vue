@@ -9,7 +9,7 @@
           <span @click="isShowSort=true,isShowDevelopers=false,isShowArea=false">
             
             <i v-if="searchVal.filter==''">{{$t('sortedBy')}}</i>
-            <i v-if="searchVal.filter!=''">{{$t('sortedBy')}} {{searchVal.filter}}</i>
+            <i v-if="searchVal.filter!=''">{{$t('sortedBy')}}</i>
             <i class="icon-sanjiaoxing" :class="isShowSort==true?'color-primary':''"></i> 
           </span>
           <span @click="isShowDevelopers=true,isShowSort=false,isShowArea=false">
@@ -31,8 +31,8 @@
               <p>NONE</p>
             </div>
             <ul v-else>
-              <li v-for="(item,idx) in houseList" :key="idx">
-                <router-link :to="{path:'/detail',query:{'id':item.id}}" class="clearfix">
+              <li v-for="(item,idx) in houseList" :key="idx" @click="setSession(0)">
+                <router-link :to="{path:'/detail',query:{'id':item.id}}" class="clearfix" >
                   <div class="clearfix">
                   <div class="left">
                     <img alt="" v-lazy="item.projectMainImg" :key="item.projectMainImg">
@@ -67,7 +67,7 @@
 
     
 
-    <div class="footer">
+    <div class="footer" @click="setSession(1)">
       <router-link class="button1 bg-primary" :to="{path:'/bookingList'}">
       {{$t('myAppointment')}}</router-link>
     </div>
@@ -77,15 +77,27 @@
     <!-- 智能排序 -->
     <layer :isShow="isShowSort" @close="isShowSort=false" :iShead="false" :iSfoot="false">
       <div class="select-list">
+        <!-- <checklist label-position="center" required :options="sortList" v-model="filterList" @on-change="change">
+          
+        </checklist> -->
         <ul>
-          <li v-for="(item,idx) in sortList" :key="idx" @click="choseSort(item.value)" 
-          :class="item.value==searchVal.filter?'color-primary':''"
+          
+          <li @click="choseSort(null,'filter')" 
+          :class="searchVal.filter==null?'color-primary':''"
           >
-            <i class="icon-hook" v-if="item.value==searchVal.filter"></i>
-            {{item.text}}
+            <i class="icon-hook"></i>
+            {{$t('ALL')}}
           </li>
         </ul>
+        <checker v-model="filterList" type="checkbox" default-item-class="demo1-item" selected-item-class="color-primary" @on-change="change">
+          <checker-item v-for="(item,idx) in sortList" :key="idx" :value="item.value"><i class="icon-hook"></i> {{ item.key }}</checker-item>
+        </checker>
+        
       </div>
+      <div class="f-layer-card-footer">
+            <a href="javascript:;" class="cancel-btn" @click="choseSort(null,'filter')">{{$t('cancel')}}</a>
+            <a href="javascript:;" class="ok-btn bg-primary" @click="choseSort(filterList,'filter')">{{$t('confirm')}}</a>
+        </div>
     </layer>
 
     <!-- 开发商 -->
@@ -93,7 +105,7 @@
       <div class="select-list">
         <ul>
           <li v-for="(item,idx) in developersList" :key="idx" @click="chosedevelopers(item.developers)" :class="item.developers==searchVal.developers?'color-primary':''">
-            <i class="icon-hook" v-if="item.developers==searchVal.developers"></i>
+            <i class="icon-hook" ></i>
             {{item.developers}}
             <i v-if="item.developers==''">{{$t('ALL')}}</i>
           </li>
@@ -110,7 +122,7 @@
       <div class="select-list">
         <ul>
           <li v-for="(item,idx) in housesAreaList" :key="idx"  :class="item.community==searchVal.area?'color-primary':''" @click="choseCommunity(item.community)">
-            <i class="icon-hook" v-if="item.community==searchVal.area"></i>
+            <i class="icon-hook"></i>
             {{item.community}}
             <i v-if="item.community==''">{{$t('ALL')}}</i>
           </li>
@@ -137,7 +149,9 @@ export default {
         developers:'',
         area:'',
         filter:null,
-        token:this.token
+        city:this.city,
+        token:this.token,
+        
       },
       pageInfo:{},
       houseList:[],
@@ -145,30 +159,30 @@ export default {
       isShowDevelopers:false,
       isShowArea:false,
       sortList:[
-            {'value': null, 'text': '全部'},
-            {value: 'A', text: 'A'},
-            {value: 'B', text: 'B'},
-            {value: 'C', text: 'C'},
-            {value: 'D', text: 'D'},
-            {value: 'E', text: 'E'},
-            {value: 'F', text: 'F'},
-            {value: 'G', text: 'G'},
-            {value: 'H', text: 'H'},
-            {value: 'I', text: 'I'},
-            {value: 'J', text: 'J'},
-            {value: 'K', text: 'K'},
-            {value: 'L', text: 'L'},
-            {value: 'M', text: 'M'},
-            {value: 'N', text: 'N'},
-            {value: 'O', text: 'O'},
-            {value: 'S', text: 'S'},
-            {value: 'T', text: 'T'},
-            {value: 'U', text: 'U'},
-            {value: 'V', text: 'V'},
-            {value: 'W', text: 'W'},
-            {value: 'X', text: 'X'},
-            {value: 'Y', text: 'Y'},
-            {value: 'Z', text: 'Z'}],
+            // {value: "", 'text': this.$t('ALL'),key:this.$t('ALL')},
+            {value: 'A', text: 'A',key:'A'},
+            {value: 'B', text: 'B',key:'B'},
+            {value: 'C', text: 'C',key:'C'},
+            {value: 'D', text: 'D',key:'D'},
+            {value: 'E', text: 'E',key:'E'},
+            {value: 'F', text: 'F',key:'F'},
+            {value: 'G', text: 'G',key:'G'},
+            {value: 'H', text: 'H',key:'H'},
+            {value: 'I', text: 'I',key:'I'},
+            {value: 'J', text: 'J',key:'J'},
+            {value: 'K', text: 'K',key:'K'},
+            {value: 'L', text: 'L',key:'L'},
+            {value: 'M', text: 'M',key:'M'},
+            {value: 'N', text: 'N',key:'N'},
+            {value: 'O', text: 'O',key:'O'},
+            {value: 'S', text: 'S',key:'S'},
+            {value: 'T', text: 'T',key:'T'},
+            {value: 'U', text: 'U',key:'U'},
+            {value: 'V', text: 'V',key:'V'},
+            {value: 'W', text: 'W',key:'W'},
+            {value: 'X', text: 'X',key:'X'},
+            {value: 'Y', text: 'Y',key:'Y'},
+            {value: 'Z', text: 'Z',key:'Z'}],
       developersList:[],
       housesAreaList:[],
       bottomConfig: {  //下拉刷新组件传值
@@ -190,12 +204,17 @@ export default {
         loadedStayTime: 400,
         stayDistance: 50,
         triggerDistance: 70        
-      }
+      },
+      filterList:[]
     }
   },
+
   created() {
   },
   mounted() {
+      if(sessionStorage.getItem('searchVal')){
+          this.searchVal = JSON.parse(sessionStorage.getItem('searchVal')) ;
+      }
       this.getDirectSalesPropertyList();
       this.getDevelopers();
       this.getPropertyArea();
@@ -213,14 +232,13 @@ export default {
                 this.houseList = this.houseList.concat(res.data.dataSet);
                 this.pageInfo = res.data.pageInfo;
               }
-
-              // console.log( this.houseList);
+          // console.log( this.houseList);
             }
         }).catch(res=>{})     
     },
     //获取开发商列表
     getDevelopers(){
-        this.$axios.post('/api/exterior/houses/getDevelopers',this.$qs.stringify({token:this.token}) ).then(res=>{
+        this.$axios.post('/api/exterior/houses/getDevelopers',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
             // console.log(res.data)
             if(res.data.result==0){
                 this.developersList = res.data.dataSet;
@@ -231,7 +249,7 @@ export default {
     },
     // 获取区域列表
     getPropertyArea(){
-        this.$axios.post('/api/exterior/houses/getPropertyArea',this.$qs.stringify({token:this.token}) ).then(res=>{
+        this.$axios.post('/api/exterior/houses/getPropertyArea',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
             // console.log(res.data)
             if(res.data.result==0){
                 this.housesAreaList = res.data.dataSet;
@@ -240,8 +258,16 @@ export default {
         }).catch(res=>{})       
     },
 
-    choseSort(val){
-      this.searchVal.filter = val;
+    choseSort(val,name){
+      if(val==null&&name){
+        this.searchVal.filter = val;
+      }else{
+        this.searchVal.filter = typeof val == "string"? val:val.join(',');
+      }
+      if(val==null&&name){
+        this.filterList = [];
+      }
+      
       this.isShowSort = false;
       this.houseList = [];
       this.getDirectSalesPropertyList();
@@ -276,6 +302,27 @@ export default {
         this.searchVal.pageIndex++;
       }
       this.getDirectSalesPropertyList(loaded);
+    },
+    gettest(){
+        
+    },
+    setSession(type){
+      if(type==0){
+        sessionStorage.setItem('searchVal',JSON.stringify(this.searchVal))
+      }else{
+        if( sessionStorage.getItem('searchVal') ){
+            sessionStorage.removeItem('searchVal')
+        }
+      }
+    },
+    change(arr){
+      if(arr.length==this.sortList.length){
+        this.searchVal.filter = null;
+      }else if(arr.length==0){
+        this.searchVal.filter = null;
+      }else{
+        this.searchVal.filter = arr.join(',');
+      }    
     },
   }
 }

@@ -1,0 +1,782 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.2",
+    "workspace": "f:\\Jammy\\20181010_sandyH5",
+    "linecount": [
+        {
+            "version": "0.2.2",
+            "counttime": "2018-12-01 17:52:50",
+            "filesum": 113,
+            "codesum": 17651,
+            "commentsum": 379,
+            "blanksum": 433,
+            "statistics": {
+                "": {
+                    "code": 59,
+                    "comment": 9,
+                    "blank": 2
+                },
+                ".js": {
+                    "code": 1080,
+                    "comment": 189,
+                    "blank": 107
+                },
+                ".html": {
+                    "code": 23,
+                    "comment": 2,
+                    "blank": 3
+                },
+                ".json": {
+                    "code": 12659,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".md": {
+                    "code": 14,
+                    "comment": 1,
+                    "blank": 7
+                },
+                ".vue": {
+                    "code": 2013,
+                    "comment": 86,
+                    "blank": 121
+                },
+                ".map": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".css": {
+                    "code": 217,
+                    "comment": 34,
+                    "blank": 72
+                },
+                ".scss": {
+                    "code": 1585,
+                    "comment": 58,
+                    "blank": 120
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 9,
+                    "filename": ".babelrc"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": ".editorconfig"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 2,
+                    "filename": ".postcssrc.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": ".project"
+                },
+                {
+                    "blank": 7,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "build\\build.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "build\\check-versions.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 1,
+                    "filename": "build\\dev-client.js"
+                },
+                {
+                    "blank": 16,
+                    "code": 62,
+                    "comment": 12,
+                    "filename": "build\\dev-server.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 60,
+                    "comment": 5,
+                    "filename": "build\\utils.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "build\\vue-loader.conf.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 72,
+                    "comment": 0,
+                    "filename": "build\\webpack.base.conf.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 29,
+                    "comment": 4,
+                    "filename": "build\\webpack.dev.conf.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 108,
+                    "comment": 35,
+                    "filename": "build\\webpack.prod.conf.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "config\\dev.env.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 31,
+                    "comment": 16,
+                    "filename": "config\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "config\\prod.env.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "config\\test.env.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 2,
+                    "filename": "dist\\css\\app.ca1b6edf5aa2c18672cf3a3749c90d17.css"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\css\\app.ca1b6edf5aa2c18672cf3a3749c90d17.css.map"
+                },
+                {
+                    "filename": "dist\\img\\banner.01a9822.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\banner.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\clock.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\error-en.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\error-zh.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\house.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\lazyload.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\map.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\money.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "dist\\img\\vip.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\0.78403b31a7e50444b583.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\1.2a286810bb793afa93ea.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\10.b5f9b62dae80522b9652.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\2.2652fe128405054fd332.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\3.faf20d0321bdac9ceb16.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\4.2dc9842747820dda1ce0.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\5.d97271f9903f15f6a20c.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\6.9873c857b2d79bb4c8d1.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\7.b452f46dac449be6c310.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\8.50d5a59834999b311dce.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\9.afea5b8a109dbbc76f6a.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\app.ec77b93dae3164c273e7.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\manifest.b8d8e0bbd3889478ac00.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "dist\\js\\vendor.701c226f31ff0e6e83c5.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 2,
+                    "filename": "dist\\js\\zepto.min.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 2,
+                    "filename": "index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 11615,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 1,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 14,
+                    "comment": 1,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 6,
+                    "filename": "src\\App.vue"
+                },
+                {
+                    "filename": "src\\assets\\Art7.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\Art9.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\bg_blank.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\close_btn1.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\jin-saonjiao.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\kuangkuang.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\load.gif",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\load2.gif",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\loading.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\lx_fx.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\lx_kf.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\lx_map.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\mescroll-totop.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\per_icol_01.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\pull.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\sanjiao1.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\search_ico.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\sj_up.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\tu02.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\tu03.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\turn_right.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 6,
+                    "code": 34,
+                    "comment": 1,
+                    "filename": "src\\common.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 83,
+                    "comment": 0,
+                    "filename": "src\\components\\bookingDetail.vue"
+                },
+                {
+                    "blank": 4,
+                    "code": 116,
+                    "comment": 3,
+                    "filename": "src\\components\\bookingList.vue"
+                },
+                {
+                    "blank": 18,
+                    "code": 235,
+                    "comment": 14,
+                    "filename": "src\\components\\buyData.vue"
+                },
+                {
+                    "blank": 6,
+                    "code": 156,
+                    "comment": 2,
+                    "filename": "src\\components\\contract.vue"
+                },
+                {
+                    "blank": 6,
+                    "code": 59,
+                    "comment": 3,
+                    "filename": "src\\components\\contractApplyResult.vue"
+                },
+                {
+                    "blank": 4,
+                    "code": 100,
+                    "comment": 2,
+                    "filename": "src\\components\\detail.vue"
+                },
+                {
+                    "blank": 1,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "src\\components\\finance.vue"
+                },
+                {
+                    "blank": 18,
+                    "code": 293,
+                    "comment": 24,
+                    "filename": "src\\components\\finance_personal.vue"
+                },
+                {
+                    "blank": 23,
+                    "code": 297,
+                    "comment": 11,
+                    "filename": "src\\components\\index.vue"
+                },
+                {
+                    "blank": 8,
+                    "code": 169,
+                    "comment": 6,
+                    "filename": "src\\components\\sign.vue"
+                },
+                {
+                    "blank": 8,
+                    "code": 273,
+                    "comment": 12,
+                    "filename": "src\\components\\test.vue"
+                },
+                {
+                    "blank": 6,
+                    "code": 94,
+                    "comment": 33,
+                    "filename": "src\\lang\\en.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 94,
+                    "comment": 33,
+                    "filename": "src\\lang\\zh.js"
+                },
+                {
+                    "blank": 22,
+                    "code": 127,
+                    "comment": 15,
+                    "filename": "src\\main.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 963,
+                    "comment": 0,
+                    "filename": "src\\nationality.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 3,
+                    "filename": "src\\newComponents\\layer\\index.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 144,
+                    "comment": 3,
+                    "filename": "src\\newComponents\\layer\\layer.vue"
+                },
+                {
+                    "blank": 1,
+                    "code": 128,
+                    "comment": 3,
+                    "filename": "src\\router\\index.js"
+                },
+                {
+                    "blank": 20,
+                    "code": 282,
+                    "comment": 9,
+                    "filename": "src\\scss\\common.scss"
+                },
+                {
+                    "blank": 91,
+                    "code": 783,
+                    "comment": 36,
+                    "filename": "src\\scss\\components.scss"
+                },
+                {
+                    "blank": 7,
+                    "code": 326,
+                    "comment": 8,
+                    "filename": "src\\scss\\developers.scss"
+                },
+                {
+                    "blank": 2,
+                    "code": 194,
+                    "comment": 5,
+                    "filename": "src\\scss\\finance.scss"
+                },
+                {
+                    "blank": 31,
+                    "code": 48,
+                    "comment": 28,
+                    "filename": "src\\scss\\iconfont.css"
+                },
+                {
+                    "blank": 41,
+                    "code": 167,
+                    "comment": 4,
+                    "filename": "src\\scss\\reset.css"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\store.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "static\\.gitkeep"
+                },
+                {
+                    "filename": "static\\img\\banner.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\clock.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\error-en.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\error-zh.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\house.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\lazyload.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\map.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\money.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "static\\img\\vip.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 2,
+                    "filename": "static\\js\\zepto.min.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 8,
+                    "filename": "test\\e2e\\custom-assertions\\elementCount.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 40,
+                    "comment": 1,
+                    "filename": "test\\e2e\\nightwatch.conf.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 21,
+                    "comment": 8,
+                    "filename": "test\\e2e\\runner.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 12,
+                    "comment": 5,
+                    "filename": "test\\e2e\\specs\\test.js"
+                }
+            ]
+        }
+    ]
+}

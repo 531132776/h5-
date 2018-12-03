@@ -13,7 +13,7 @@
                     @on-change="onChange" 
                     show-name:true
                     :confirm-text="$t('confirm')"
-                    :cancel-text="$t('cancal')"
+                    :cancel-text="$t('cancel')"
                     :placeholder="$t('pleaseSelect')">
                 </popup-picker>
                 <datetime :title="$t('dateBirth')" 
@@ -27,7 +27,7 @@
                 :minYear="1918"
                 @on-confirm="dateConfirm"
                 :confirm-text="$t('confirm')"
-                :cancel-text="$t('cancal')"
+                :cancel-text="$t('cancel')"
                 :placeholder="$t('pleaseSelect')"
                 >
                 </datetime>
@@ -40,7 +40,7 @@
                     @on-change="onChange" 
                     show-name:true
                     :confirm-text="$t('confirm')"
-                    :cancel-text="$t('cancal')"
+                    :cancel-text="$t('cancel')"
                     :placeholder="$t('pleaseSelect')">
                 </popup-picker>  
                 <popup-picker 
@@ -52,7 +52,7 @@
                     @on-change="onChange" 
                     show-name:true
                     :confirm-text="$t('confirm')"
-                    :cancel-text="$t('cancal')"
+                    :cancel-text="$t('cancel')"
                     :placeholder="$t('pleaseSelect')">
                 </popup-picker>
                     <!-- show8=true -->
@@ -66,7 +66,7 @@
                         v-model="nationaldataValue"
                         show-name:true
                         :confirm-text="$t('confirm')"
-                        :cancel-text="$t('cancal')"
+                        :cancel-text="$t('cancel')"
                         :placeholder="$t('pleaseSelect')">
                     </popup-picker>
                 </div>
@@ -74,7 +74,7 @@
 
                 <x-input :title="$t('passportNumber')" v-model="saveData.passportNumber" :placeholder="$t('pleaseenter')"></x-input>
 
-                <x-input :title="$t('telephone')" v-model="saveData.telephone" :placeholder="$t('pleaseenter')"></x-input>
+                <x-input type='number' :title="$t('telephone')" v-model="saveData.telephone" :placeholder="$t('pleaseenter')" ></x-input>
 
                 <x-input type='number' :title="$t('loanAmount')" v-model="saveData.loanAmount" :placeholder="$t('pleaseenter')"></x-input>
 
@@ -293,8 +293,16 @@ export default {
                 this.ErrorMsg = this.$t('p_loanAmount');
                 this.alertTips();
                 return false;
-            }else if( this.saveData.email=='' ){
-                this.ErrorMsg = this.$t('p_email');
+            }else if( 
+                this.saveData.email=='' || 
+                !this.saveData.email.match(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/)
+                ){
+                    if(this.saveData.email==''){
+                        this.ErrorMsg = this.$t('p_email');
+                    }else{
+                        this.ErrorMsg = this.$t('p_emailC');
+                        this.saveData.email = ""
+                    }
                 this.alertTips();
                 return false;
             }            
