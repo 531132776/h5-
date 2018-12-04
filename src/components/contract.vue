@@ -124,11 +124,15 @@ export default {
     methods:{
         getNewBuildingMemberApply(){ //获取开发商直售楼盘个人信息
             console.log( this.$route.query.projectId )
+            if(!this.$store.state.isLoading){
+                this.$vux.loading.show();
+            }
             this.$axios.post(`/api/exterior/member/getNewBuildingMemberApply`,this.$qs.stringify({'projectId':this.$route.query.projectId,'token':this.token}) ).then(res=>{
                 if(res.data.result==0){
                     this.contractData = res.data.dataSet;
                     this.contractData.createTime = this.contractData.createTime? this.contractData.createTime.split(' ')[0].split('-').reverse().join('/'):"";
                     console.log( this.contractData.createTime )
+                    this.$vux.loading.hide();
                 }
             }).catch(res=>{}) 
         },

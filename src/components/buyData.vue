@@ -140,7 +140,6 @@ export default {
             if(!this.verifiData()){
                  return false;
             }else{
-                console.log(this.saveData  )
                 this.$axios.post('/api/exterior/member/saveNewBuildingMemberApply',this.$qs.stringify(this.saveData) ).then(res=>{
                     console.log(res.data,res.data.result==0)
                     
@@ -158,28 +157,30 @@ export default {
         // 如果已申购，但是未签名，回显已填过的数据
         getPurchaseApplyDetails(){
             console.log( this.saveData.id,'aaa')
+            if(!this.$store.state.isLoading){
+                this.$vux.loading.show();
+            }
             this.$axios.post('/api/exterior/member/getPurchaseApplyDetails',this.$qs.stringify({id:this.projectData.applyId,token:this.token}) ).then(res=>{
                 if(res.data.result==0){
                     let obj = res.data.dataSet;
                     this.saveData.familyName = obj.familyName;
                     this.saveData.name = obj.name;
-                    this.nationaldataValue = [obj.nationality];
-                    this.saveData.nationality = obj.nationality;
                     this.saveData.passportNumber = obj.passportNumber;
                     this.saveData.contactWay = obj.contactWay;
                     this.saveData.email = obj.email;
-                    if(this.saveData.id==0){
+                    // if(this.saveData.id==0){
+                        console.log(this.$route.query.nationalName &&　this.$route.query.nationalName!="")
                         if(this.$route.query.nationalName &&　this.$route.query.nationalName!=""){
                             this.saveData.nationality = this.$route.query.nationalName;
                             this.nationaldataList = [[this.$route.query.nationalName]]
                             this.nationaldataValue = [this.$route.query.nationalName]
-                        } 
-                        if(sessionStorage.getItem('d_buyData') ){
-                            this.saveData = JSON.parse(sessionStorage.getItem('d_buyData'));
+                        }else{
+                            this.saveData.nationality = obj.nationality;
+                            this.nationaldataValue = [obj.nationality];
+                            this.nationaldataList = [obj.nationality];
                         }
-                    }
-
-
+                    // }
+                    this.$vux.loading.hide();
                 }else{
                     this.$vux.toast.text(res.data.message)
                 }

@@ -218,10 +218,23 @@ export default {
       this.getDirectSalesPropertyList();
       this.getDevelopers();
       this.getPropertyArea();
+
+      let u = navigator.userAgent, app = navigator.appVersion; 
+      this.isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
+      this.isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 ;
+
+      if (window.history && window.history.pushState) {
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', this.goBack, false);
+      }
+
   },
   methods:{
     //获取开发商直售列表
     getDirectSalesPropertyList(loaded){ 
+        if(!this.$store.state.isLoading){
+            this.$vux.loading.show();
+        }
         this.$axios.post('/api/exterior/houses/getDirectSalesPropertyList',this.$qs.stringify(this.searchVal) ).then(res=>{
             // console.log(res.data)
             if(res.data.result==0){
@@ -232,6 +245,7 @@ export default {
                 this.houseList = this.houseList.concat(res.data.dataSet);
                 this.pageInfo = res.data.pageInfo;
               }
+              this.$vux.loading.hide();
           // console.log( this.houseList);
             }
         }).catch(res=>{})     
@@ -324,6 +338,17 @@ export default {
         this.searchVal.filter = arr.join(',');
       }    
     },
+    goBack(){
+        console.log(this.isAndroid,'aaa'  )
+        if(this.isAndroid){
+            window.android.goHome();
+        }else if(this.isiOS  ){
+            window.webkit.messageHandlers.goHome.postMessage(0);
+        }
+    }    
+  },
+  destroyed(){
+      window.removeEventListener('popstate', this.goBack, false);
   }
 }
 </script> 

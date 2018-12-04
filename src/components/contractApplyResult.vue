@@ -41,6 +41,12 @@ export default {
         this.isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 ;
     },
     mounted() {
+
+        if (window.history && window.history.pushState) {
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', this.goBack, false);
+        }
+
         console.log(this.isAndroid,'isAndroid' ,this.isiOS,'isiOS' )
     },
     methods:{
@@ -58,7 +64,13 @@ export default {
             }else if(this.isiOS  ){
                 window.webkit.messageHandlers.goHome.postMessage(0);
             }
+        },
+        goBack(){
+            this.$router.replace({path: '/'});
         }
+    },
+    destroyed(){
+        window.removeEventListener('popstate', this.goBack, false);
     }
 }
 </script>

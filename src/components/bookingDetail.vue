@@ -6,7 +6,7 @@
         </header> -->
         <div class="developers-list">
             <div class="developers-list-section">
-            <ul >
+            <ul v-if="houseDetail.length!=0">
                 <li>
                     <p class="applicationNumber">
                         <span class="color-light">{{$t('orderCode')}}</span>
@@ -47,7 +47,7 @@
             </ul>
             <div class="space-notice" v-if="houseDetail==null || houseDetail.length==0">
                 <i class="icon-Artboard19"></i>
-                <p>暂无</p>
+                <p>NONE</p>
             </div>
             </div>
         </div>
@@ -71,11 +71,14 @@ export default {
     },
     methods:{
         getPurchaseApplyList(){
+            if(!this.$store.state.isLoading){
+                this.$vux.loading.show();
+            }
             this.$axios.post('/api/exterior/member/getPurchaseApplyDetails',this.$qs.stringify({id:this.$route.query.id,token:this.token}) ).then(res=>{
                 if(res.data.result==0){
                     this.houseDetail = res.data.dataSet;
-                    console.log( this.houseDetail )
                     this.houseDetail.createTime = this.houseDetail.createTime? this.houseDetail.createTime.split(' ')[0].split('-').reverse().join('/'):"";
+                    this.$vux.loading.hide();
                 }
             }).catch(res=>{})
         }

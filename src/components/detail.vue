@@ -1,5 +1,5 @@
 <template>
-    <div class="page developers-page">
+    <div class="page developers-page" >
         <!-- <header class="developers-header">
             <router-link :to="{path:'/'}"><i class="icon-fanhui-copy1 gray"></i></router-link>
             楼盘信息
@@ -64,11 +64,19 @@ export default {
              
     },
     mounted() {
-        this.getDict();
+        if(sessionStorage.getItem('getDict1')){
+            this.item = JSON.parse(sessionStorage.getItem('getDict1'));
+        }else{
+            this.getDict();    
+        }
+        
         this.getDirectSalesDetails();
     },
     methods:{
         getDirectSalesDetails(){
+            if(!this.$store.state.isLoading){
+                this.$vux.loading.show();
+            }
             this.$axios.post('/api/exterior/houses/getDirectSalesDetails',this.$qs.stringify({'id':this.$route.query.id,'token':this.token}) ).then(res=>{
                 if(res.data.result==0){    
                     sessionStorage.setItem('projectData',JSON.stringify({
@@ -88,6 +96,8 @@ export default {
                     this.houseDetail.houseTypeName = this.houseTypeName;
                     this.houseDetail.bedroomNum = this.houseDetail.bedroomNum? this.houseDetail.bedroomNum.split(','):"";
                     this.houseDetail.deliveryTime = this.houseDetail.deliveryTime ? this.houseDetail.deliveryTime.split(' ')[0].split('-').reverse().join('/') : "";
+
+                    this.$vux.loading.hide();
                 }
             }).catch(res=>{}) 
         },
@@ -97,7 +107,10 @@ export default {
                     // var arr = res.data.dataSet.items;
                     this.item = res.data.dataSet.items;
                     // console.log(this.item)
+                    sessionStorage.setItem('getDict1',JSON.stringify(this.item));
                 }
+            }).catch(err=>{
+
             })
         },
     }

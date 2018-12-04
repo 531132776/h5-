@@ -180,9 +180,10 @@ export default {
     mounted() {
         this.initJson();
         let _this = this;
-        window.addEventListener("popstate", function(e) {
-            console.log(e,'国籍选择页面')
-        }, false);
+        // if (window.history && window.history.pushState) {
+        //     history.pushState(null, null, document.URL);
+        //     window.addEventListener('popstate', this.goBack, false);
+        // }
 
     },
     methods:{
@@ -286,6 +287,13 @@ export default {
             // this.$emit('close');
             this.$router.go(-1);
         },
-    }
+        // goBack(){
+            
+        //     this.$router.go(-2);
+        // }
+    },
+    // destroyed(){
+    //     window.removeEventListener('popstate', this.goBack, false);
+    // }
 }
 </script>

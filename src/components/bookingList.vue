@@ -86,6 +86,9 @@ export default {
     },
     methods:{
         getPurchaseApplyList(loaded){
+            if(!this.$store.state.isLoading){
+                this.$vux.loading.show();
+            }
             this.$axios.post('/api/exterior/member/getPurchaseApplyList',this.$qs.stringify(this.searchVal) ).then(res=>{
                 if(res.data.result==0){
                     if(loaded){
@@ -94,6 +97,7 @@ export default {
                     this.houseList = this.houseList.concat(res.data.dataSet);
                     this.pageInfo = res.data.pageInfo;
                     // console.log( this.houseList )
+                    this.$vux.loading.hide();
                 }
             }).catch(res=>{})
         },
