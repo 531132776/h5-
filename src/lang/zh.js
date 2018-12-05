@@ -21,6 +21,7 @@ export default {
     eight:'八居室',
     nine:'九居室',
     ten:'十居室',
+    studio:'小开间',
     correctInformation:'请填写本人真实信息，核实后不可修改',
     pleaseenter:'请输入',
     pleaseSelect:'请选择',

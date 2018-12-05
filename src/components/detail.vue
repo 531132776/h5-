@@ -34,6 +34,7 @@
                         <template v-if="item==8">{{$t('eight')}}</template>
                         <template v-if="item==9">{{$t('nine')}} </template>
                         <template v-if="item==10">{{$t('ten')}} </template>
+                        <template v-if="item==100">{{$t('studio')}} </template>
                         <template v-if="idx!=houseDetail.bedroomNum.length-1">
                              
                         </template>

@@ -51,7 +51,7 @@ Vue.filter('changeUnit', function(val) {
     }
 });
 
-// let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0\u003d.eyJpc3MiOiJtXzIwMTgxMjAzMjEyNzQ3OTk3IiwiZXhwIjoiRGVjIDMsIDIwMTggOToyNzo0OCBQTSIsInVzZXJJZCI6Ijg4IiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg1NzE1NzgzNTMifQ\u003d\u003d.OTdmMWEwNWY3YTBjNzUwYTAwY2ZkODUxYjY5ZWJkYjM2NzU4NzQ1Y2ViOTczY2UxNjU2NDMxMmJmMTc5MTQ1Yg\u003d\u003d&language=zh&city=shenzhen'
+// let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0\u003d.eyJpc3MiOiJtXzIwMTgxMjAzMjEyNzQ3OTk3IiwiZXhwIjoiRGVjIDUsIDIwMTggMTE6Mzg6NTcgQU0iLCJ1c2VySWQiOiI4OCIsImFyZWFDb2RlIjoiODYiLCJtb2JsZSI6IjE4NTcxNTc4MzUzIn0\u003d.YWQwMzE4NGIyNmRkY2YwOWMxOGQ2MjRjYjRiODU5MmE0OGQxMmNhMDMwMWM1YmFlMDgwYzE4ODRhODYzZWRiYQ\u003d\u003d&language=en&city=shenzhen'
 let str = window.location.href;
 let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
 let lang = str.substr(str.indexOf('&language=')+10,2);//截取语言

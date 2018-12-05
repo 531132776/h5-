@@ -20,6 +20,7 @@ export default {
     eight:'8BR',
     nine:'9BR',
     ten:'10BR',
+    studio:'studio',
     correctInformation:'Please fill in correct information,can not be modified after verification',
     pleaseenter:'Please enter',
     pleaseSelect:'Please select',
