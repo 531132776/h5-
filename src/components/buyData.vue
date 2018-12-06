@@ -141,15 +141,15 @@ export default {
                  return false;
             }else{
                 this.$axios.post('/api/exterior/member/saveNewBuildingMemberApply',this.$qs.stringify(this.saveData) ).then(res=>{
-                    console.log(res.data,res.data.result==0)
+                    console.log(res.data,res.result==0)
                     
-                    if(res.data.result==0){
-                        this.$router.push({path:'/contract',query:{'projectId':res.data.dataSet.projectId,'id':res.data.dataSet.id}});
+                    if(res.result==0){
+                        this.$router.push({path:'/contract',query:{'projectId':res.dataSet.projectId,'id':res.dataSet.id}});
                     }else{
-                        // this.$vux.toast.text(res.data.message)
+                        // this.$vux.toast.text(res.message)
                     }
                 }).catch(res=>{
-                    // this.$vux.toast.text(res.data.message);
+                    // this.$vux.toast.text(res.message);
                     })                  
             }
            
@@ -161,8 +161,8 @@ export default {
                 this.$vux.loading.show();
             }
             this.$axios.post('/api/exterior/member/getPurchaseApplyDetails',this.$qs.stringify({id:this.projectData.applyId,token:this.token}) ).then(res=>{
-                if(res.data.result==0){
-                    let obj = res.data.dataSet;
+                if(res.result==0){
+                    let obj = res.dataSet;
                     this.saveData.familyName = obj.familyName;
                     this.saveData.name = obj.name;
                     this.saveData.passportNumber = obj.passportNumber;
@@ -180,11 +180,10 @@ export default {
                             this.nationaldataList = [obj.nationality];
                         }
                     // }
-                    this.$vux.loading.hide();
                 }else{
-                    this.$vux.toast.text(res.data.message)
+                    this.$vux.toast.text(res.message)
                 }
-            }).catch(res=>{this.$vux.toast.text(res.data.message);})             
+            }).catch(res=>{this.$vux.toast.text(res.message);}).finally(() => this.$vux.loading.hide());               
         },
         // 修改个人楼盘申购
         updateNewBuildingMemberApply(){
@@ -192,12 +191,12 @@ export default {
                  return false;
             }else{
                 this.$axios.post('/api/exterior/member/updateNewBuildingMemberApply',this.$qs.stringify(this.saveData) ).then(res=>{
-                    if(res.data.result==0){
-                        this.$router.push({path:'/contract',query:{'projectId':res.data.dataSet.projectId,'id':res.data.dataSet.id}});
+                    if(res.result==0){
+                        this.$router.push({path:'/contract',query:{'projectId':res.dataSet.projectId,'id':res.dataSet.id}});
                     }else{
-                        this.$vux.toast.text(res.data.message)
+                        this.$vux.toast.text(res.message)
                     }
-                }).catch(res=>{this.$vux.toast.text(res.data.message);})  
+                }).catch(res=>{this.$vux.toast.text(res.message);})  
             }
               
         },
@@ -240,16 +239,16 @@ export default {
         // 防止提交申请但是没有合同签名后直接按浏览器退回，再次修改提交，需获取applyId，判断是走修改还是新增接口
         getDirectSalesDetails(){
             this.$axios.post('/api/exterior/houses/getDirectSalesDetails',this.$qs.stringify({'id':this.projectData.id,'token':this.token}) ).then(res=>{
-                if(res.data.result==0){    
+                if(res.result==0){    
                     sessionStorage.setItem('projectData',JSON.stringify({
-                        'projectName':res.data.dataSet.projectName,
-                        'developers':res.data.dataSet.developers,
-                        'id':res.data.dataSet.id,
-                        'applyId':res.data.dataSet.applyId,
+                        'projectName':res.dataSet.projectName,
+                        'developers':res.dataSet.developers,
+                        'id':res.dataSet.id,
+                        'applyId':res.dataSet.applyId,
                     })) ;
                     this.projectData =  JSON.parse( sessionStorage.getItem('projectData') ) ;
-                    this.saveData.id = res.data.dataSet.applyId;
-                    if( res.data.dataSet.applyId>0 ){
+                    this.saveData.id = res.dataSet.applyId;
+                    if( res.dataSet.applyId>0 ){
                         this.getPurchaseApplyDetails();
                     }else{
                         if(this.$route.query.nationalName &&　this.$route.query.nationalName!=""){

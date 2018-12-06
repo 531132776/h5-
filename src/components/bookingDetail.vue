@@ -75,12 +75,11 @@ export default {
                 this.$vux.loading.show();
             }
             this.$axios.post('/api/exterior/member/getPurchaseApplyDetails',this.$qs.stringify({id:this.$route.query.id,token:this.token}) ).then(res=>{
-                if(res.data.result==0){
-                    this.houseDetail = res.data.dataSet;
+                if(res.result==0){
+                    this.houseDetail = res.dataSet;
                     this.houseDetail.createTime = this.houseDetail.createTime? this.houseDetail.createTime.split(' ')[0].split('-').reverse().join('/'):"";
-                    this.$vux.loading.hide();
                 }
-            }).catch(res=>{})
+            }).catch(res=>{}).finally(() => this.$vux.loading.hide());  
         }
     }
 }

@@ -128,13 +128,12 @@ export default {
                 this.$vux.loading.show();
             }
             this.$axios.post(`/api/exterior/member/getNewBuildingMemberApply`,this.$qs.stringify({'projectId':this.$route.query.projectId,'token':this.token}) ).then(res=>{
-                if(res.data.result==0){
-                    this.contractData = res.data.dataSet;
+                if(res.result==0){
+                    this.contractData = res.dataSet;
                     this.contractData.createTime = this.contractData.createTime? this.contractData.createTime.split(' ')[0].split('-').reverse().join('/'):"";
                     console.log( this.contractData.createTime )
-                    this.$vux.loading.hide();
                 }
-            }).catch(res=>{}) 
+            }).catch(res=>{}).finally(() => this.$vux.loading.hide());   
         },
         update(){
             if(this.canvasImg==''){
@@ -152,7 +151,7 @@ export default {
                 this.$axios.post(`/api/exterior/member/saveNewBuildingMemberApply`,
                 this.$qs.stringify({'id':this.$route.query.id,'token':this.token,signature:this.fileurl})
                 ).then(res=>{
-                    if(res.data.result==0){
+                    if(res.result==0){
                         this.$router.push({path:'/contractApplyResult',query:
                         {'projectId':this.$route.query.projectId,'id':this.$route.query.id}})
                     }

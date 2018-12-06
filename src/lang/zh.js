@@ -1,4 +1,5 @@
 export default {
+   prompt:'提示',
     sortedBy:'智能排序',
     developer:'开发商',
     projectLocation:'区域选择',
@@ -49,7 +50,7 @@ export default {
     actualCompletionDate:'实际交房时间以项目开发进度为准',
     confirm:'确认',
     cancel:'取消',
-    
+    viewAfterLogin:'登录后才可查看，请先登录！',    
     // 财务
     sex:'性别',
     dateBirth:'出生年月日',

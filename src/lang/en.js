@@ -1,4 +1,5 @@
 export default {
+   prompt:'prompt',
     sortedBy:'Sorted by',
     developer:'Developer',
     projectLocation:'Project location',
@@ -49,6 +50,7 @@ export default {
     actualCompletionDate:'The actual completion date is subject to the project development progress',
     confirm:'confirm',
     cancel:'cancel',
+    viewAfterLogin:'you can view after login, please select whether to log in or not',    
 
 
     // 财务

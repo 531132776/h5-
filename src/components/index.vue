@@ -68,8 +68,9 @@
     
 
     <div class="footer" @click="setSession(1)">
-      <router-link class="button1 bg-primary" :to="{path:'/bookingList'}">
+      <router-link class="button1 bg-primary" v-if="token" :to="{path:'/bookingList'}">
       {{$t('myAppointment')}}</router-link>
+      <a href="javascript:;" v-else class="button1 bg-primary" @click="goToLogin">{{$t('myAppointment')}}</a>
     </div>
 
 
@@ -212,6 +213,7 @@ export default {
   created() {
   },
   mounted() {
+      console.log(this.token)
       if(sessionStorage.getItem('searchVal')){
           this.searchVal = JSON.parse(sessionStorage.getItem('searchVal')) ;
       }
@@ -219,9 +221,6 @@ export default {
       this.getDevelopers();
       this.getPropertyArea();
 
-      let u = navigator.userAgent, app = navigator.appVersion; 
-      this.isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
-      this.isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 ;
 
       if (window.history && window.history.pushState) {
             history.pushState(null, null, document.URL);
@@ -237,25 +236,24 @@ export default {
         }
         this.$axios.post('/api/exterior/houses/getDirectSalesPropertyList',this.$qs.stringify(this.searchVal) ).then(res=>{
             // console.log(res.data)
-            if(res.data.result==0){
+            if(res.result==0){
               if(loaded){
                 loaded('done');
               }
-              if(res.data.dataSet){
-                this.houseList = this.houseList.concat(res.data.dataSet);
-                this.pageInfo = res.data.pageInfo;
+              
+              if(res.dataSet){
+                this.houseList = this.houseList.concat(res.dataSet);
+                this.pageInfo = res.pageInfo;
               }
-              this.$vux.loading.hide();
-          // console.log( this.houseList);
             }
-        }).catch(res=>{})     
+        }).catch(res=>{}).finally(() => this.$vux.loading.hide());  
     },
     //获取开发商列表
     getDevelopers(){
         this.$axios.post('/api/exterior/houses/getDevelopers',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
             // console.log(res.data)
-            if(res.data.result==0){
-                this.developersList = res.data.dataSet;
+            if(res.result==0){
+                this.developersList = res.dataSet;
                 this.developersList.unshift({developers:''});
                 // console.log( this.developersList,'this.developersList'  )
             }
@@ -265,8 +263,8 @@ export default {
     getPropertyArea(){
         this.$axios.post('/api/exterior/houses/getPropertyArea',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
             // console.log(res.data)
-            if(res.data.result==0){
-                this.housesAreaList = res.data.dataSet;
+            if(res.result==0){
+                this.housesAreaList = res.dataSet;
                 this.housesAreaList.unshift({community: ""})
             }
         }).catch(res=>{})       
@@ -345,10 +343,30 @@ export default {
         }else if(this.isiOS  ){
             window.webkit.messageHandlers.goHome.postMessage(0);
         }
-    }    
+    },
+    goToLogin(){
+      let _this = this;
+      this.$vux.confirm.show({
+        title:_this.$t('prompt'),
+        content:'you can view after login, please select whether to log in or not',
+        confirmText:_this.$t('confirm'),
+        cancelText:_this.$t('cancel'),
+        onCancel () {
+        //you can view after login,please select whether to log in or not
+        },  
+        onConfirm () {
+          if(_this.isAndroid){
+              window.android.goLogin();
+          }else if(_this.isiOS  ){
+              window.webkit.messageHandlers.goLogin.postMessage(0);
+          }
+        }
+      })
+    }   
   },
   destroyed(){
       window.removeEventListener('popstate', this.goBack, false);
-  }
+  },
+
 }
 </script> 

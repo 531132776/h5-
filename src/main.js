@@ -9,7 +9,7 @@ import router from './router'
 import store from './store'
 
 
-import { PopupPicker,Group,XInput ,Datetime,Popup ,TransferDom,Alert ,AlertPlugin,Icon,Loading  ,LoadingPlugin ,Toast ,ToastPlugin ,Selector,Checklist ,,Checker, CheckerItem  } from 'vux'
+import { PopupPicker,Group,XInput ,Datetime,Popup ,TransferDom,Alert ,AlertPlugin,Icon,Loading  ,LoadingPlugin ,Toast ,ToastPlugin ,Selector,Checklist ,Checker, CheckerItem,Confirm ,ConfirmPlugin   } from 'vux'
 Vue.component('popup-picker', PopupPicker);
 Vue.component('Group', Group);
 Vue.component('x-input', XInput );
@@ -23,10 +23,13 @@ Vue.component('selector', Selector);
 Vue.component('checklist', Checklist);
 Vue.component('checker', Checker);
 Vue.component('checker-item', CheckerItem);
+Vue.component('confirm', Confirm);
 Vue.directive('transfer-dom', TransferDom)
 Vue.use(AlertPlugin);
 Vue.use(LoadingPlugin);
-Vue.use(ToastPlugin)
+Vue.use(ToastPlugin);
+Vue.use(ConfirmPlugin);
+
 
 import zh from './lang/zh'
 import en from './lang/en';
@@ -51,16 +54,31 @@ Vue.filter('changeUnit', function(val) {
     }
 });
 
-// let str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0\u003d.eyJpc3MiOiJtXzIwMTgxMjAzMjEyNzQ3OTk3IiwiZXhwIjoiRGVjIDUsIDIwMTggMTE6Mzg6NTcgQU0iLCJ1c2VySWQiOiI4OCIsImFyZWFDb2RlIjoiODYiLCJtb2JsZSI6IjE4NTcxNTc4MzUzIn0\u003d.YWQwMzE4NGIyNmRkY2YwOWMxOGQ2MjRjYjRiODU5MmE0OGQxMmNhMDMwMWM1YmFlMDgwYzE4ODRhODYzZWRiYQ\u003d\u003d&language=en&city=shenzhen'
-let str = window.location.href;
-let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
+let str = "";
+if(window.location.hostname == "localhost"){
+  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiRGVjIDYsIDIwMTggNTo0OTo0NSBQTSIsInVzZXJJZCI6IjQ2MDkiLCJhcmVhQ29kZSI6Ijg2IiwibW9ibGUiOiIxODUwMDAxMjIyMiJ9.M2I5ZTcwNmNlNGM4OTkxYWMzYjA2MDkwMGJhNGExYzdiMTQ5NGVlZTI4NGY4MjZmYTU0ZDgyODZmOTY4NWQ0Mg==&language=en&city=shenzhen'
+}else{
+  str = window.location.href;
+}
+
+let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))=='http:'?"":str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
 let lang = str.substr(str.indexOf('&language=')+10,2);//截取语言
-let city = str.substr(str.indexOf('&city=')+6);//截取城市
+let city = str.indexOf('&city=')==-1?"":str.substr(str.indexOf('&city=')+6);//截取城市
+
+console.log(str.indexOf('&city='),str.indexOf('&language='))
 i18n.locale = lang;
+
+//判断是ios还是安卓
+let u = navigator.userAgent, app = navigator.appVersion; 
+let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
+let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 ;
 
 Vue.prototype.token = token;
 Vue.prototype.lang = lang;
 Vue.prototype.city = city;
+Vue.prototype.isAndroid = isAndroid;
+Vue.prototype.isiOS = isiOS;
+
 axios.defaults.withCredentials = true;
  
 //图片懒加载
@@ -117,23 +135,13 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(response => {
-  // if (response.data.isVerify && response.data.isVerify == 1) {
-  //   window.location.href = response.data.wxAuthUrl;
-  // }
-
-  if(response.data.failCode == 'unlogin'){
-		// router.push('/login');
-	}
-	if(response.data.result == 0 && response.data.failCode=="redirect"){
-		window.location.href=response.data.failReason;
-	}else if(response.data.result == 0 && response.data.failReason){
-    getnotice(response.data.failReason)
+axios.interceptors.response.use(response => { 
+  if( response.data.result === 0 || response.data.result === 1002){	//正常状态码
+    return Promise.resolve(response.data);
   }else{
-		return response
-	}
-
-  return response
+    getnotice(response.data.message)
+    return Promise.reject(response.data);
+  }
 }, error => {
   // getnotice('请求超时,请重新加载')
   return Promise.reject(error)

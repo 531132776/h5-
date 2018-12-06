@@ -90,16 +90,14 @@ export default {
                 this.$vux.loading.show();
             }
             this.$axios.post('/api/exterior/member/getPurchaseApplyList',this.$qs.stringify(this.searchVal) ).then(res=>{
-                if(res.data.result==0){
+                if(res.result==0){
                     if(loaded){
                         loaded('done');
                     }
-                    this.houseList = this.houseList.concat(res.data.dataSet);
-                    this.pageInfo = res.data.pageInfo;
-                    // console.log( this.houseList )
-                    this.$vux.loading.hide();
+                    this.houseList = this.houseList.concat(res.dataSet);
+                    this.pageInfo = res.pageInfo;
                 }
-            }).catch(res=>{})
+            }).catch(res=>{}).finally(() => this.$vux.loading.hide());  
         },
         // pull-to组件
         refresh(loaded) {

@@ -36,9 +36,6 @@ export default {
     },
     created() {
         console.log(this.$route.query.id);
-        let u = navigator.userAgent, app = navigator.appVersion; 
-        this.isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
-        this.isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 ;
     },
     mounted() {
 
@@ -58,7 +55,6 @@ export default {
             }
         },
         goHome(){
-            console.log(this.isAndroid,'aaa'  )
             if(this.isAndroid){
                 window.android.goHome();
             }else if(this.isiOS  ){

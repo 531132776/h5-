@@ -135,7 +135,7 @@ export default {
                 this.$axios.post(`/api/exterior/file/upload`,fd,
                 config 
                 ).then(res=>{
-                    if(res.data.state==0){
+                    if(res.state==0){
                         console.log(res.data);
                         sessionStorage.setItem('signData',JSON.stringify(res.data) );
                         // this.$router.go(-1);

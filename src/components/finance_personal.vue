@@ -313,10 +313,10 @@ export default {
             this.$axios.post(`/api/exterior/member/addLoansApply`,
             this.$qs.stringify(this.saveData)
             ).then(res=>{
-                if(res.data.result==0){
+                if(res.result==0){
                     this.$router.push({path:'/contractApplyResult'})
                 }
-            }).catch(res=>{this.$vux.toast.text(res.data.message);})             
+            }).catch(res=>{this.$vux.toast.text(res.message);})             
         },
         alertTips(){
             this.$vux.alert.show({

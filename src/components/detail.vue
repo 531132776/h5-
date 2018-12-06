@@ -47,7 +47,8 @@
         </div>
         <div class="footer">
            
-            <router-link class="button1 bg-primary" v-if="houseDetail.applyId>=0" :to="{path:'/buyData',query:{'id':houseDetail.id,'applyId':houseDetail.applyId}}">{{$t('Apply')}}</router-link>
+            <router-link class="button1 bg-primary" v-if="houseDetail.applyId>=0&&houseDetail.applyId!=null" :to="{path:'/buyData',query:{'id':houseDetail.id,'applyId':houseDetail.applyId}}">{{$t('Apply')}}</router-link>
+            <a href="javascript:;" v-else-if="houseDetail.applyId==null"  class="button1 bg-primary" @click="goToLogin">{{$t('Apply')}}</a>
             <a href="javascript:;" v-else class="button1 bg-primary a_disable">{{$t('Apply')}}</a>
         </div>
     </div>
@@ -79,34 +80,32 @@ export default {
                 this.$vux.loading.show();
             }
             this.$axios.post('/api/exterior/houses/getDirectSalesDetails',this.$qs.stringify({'id':this.$route.query.id,'token':this.token}) ).then(res=>{
-                if(res.data.result==0){    
+                if(res.result==0){    
                     sessionStorage.setItem('projectData',JSON.stringify({
-                        'projectName':res.data.dataSet.projectName,
-                        'developers':res.data.dataSet.developers,
-                        'id':res.data.dataSet.id,
-                        'applyId':res.data.dataSet.applyId,
+                        'projectName':res.dataSet.projectName,
+                        'developers':res.dataSet.developers,
+                        'id':res.dataSet.id,
+                        'applyId':res.dataSet.applyId,
                     }))    
-                    if(res.data.dataSet.housingTypeDictcode!=""){
+                    if(res.dataSet.housingTypeDictcode!=""){
                         this.item.forEach(ele=>{
-                            if(ele.id==res.data.dataSet.housingTypeDictcode){
+                            if(ele.id==res.dataSet.housingTypeDictcode){
                                 this.houseTypeName = ele.itemValueEn;
                             }
                         })
                     }
-                    this.houseDetail = res.data.dataSet;
+                    this.houseDetail = res.dataSet;
                     this.houseDetail.houseTypeName = this.houseTypeName;
                     this.houseDetail.bedroomNum = this.houseDetail.bedroomNum? this.houseDetail.bedroomNum.split(','):"";
                     this.houseDetail.deliveryTime = this.houseDetail.deliveryTime ? this.houseDetail.deliveryTime.split(' ')[0].split('-').reverse().join('/') : "";
-
-                    this.$vux.loading.hide();
                 }
-            }).catch(res=>{}) 
+            }).catch(res=>{}).finally(() => this.$vux.loading.hide());   
         },
         getDict(val){
             this.$axios.post('/api/exterior/get/dict/1').then(res=>{
-                if(res.data.result ==0){
-                    // var arr = res.data.dataSet.items;
-                    this.item = res.data.dataSet.items;
+                if(res.result ==0){
+                    // var arr = res.dataSet.items;
+                    this.item = res.dataSet.items;
                     // console.log(this.item)
                     sessionStorage.setItem('getDict1',JSON.stringify(this.item));
                 }
@@ -114,6 +113,25 @@ export default {
 
             })
         },
+    goToLogin(){
+      let _this = this;
+      this.$vux.confirm.show({
+        title:_this.$t('prompt'),
+        content:'you can view after login, please select whether to log in or not',
+        confirmText:_this.$t('confirm'),
+        cancelText:_this.$t('cancel'),
+        onCancel () {
+        //you can view after login,please select whether to log in or not
+        },  
+        onConfirm () {
+          if(_this.isAndroid){
+              window.android.goLogin();
+          }else if(_this.isiOS  ){
+              window.webkit.messageHandlers.goLogin.postMessage(0);
+          }
+        }
+      })
+    }
     }
 }
 </script>
