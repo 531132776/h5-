@@ -65,7 +65,6 @@ let token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))=='h
 let lang = str.substr(str.indexOf('&language=')+10,2);//截取语言
 let city = str.indexOf('&city=')==-1?"":str.substr(str.indexOf('&city=')+6);//截取城市
 
-console.log(str.indexOf('&city='),str.indexOf('&language='))
 i18n.locale = lang;
 
 //判断是ios还是安卓
@@ -136,7 +135,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => { 
-  if( response.data.result === 0 || response.data.result === 1002){	//正常状态码
+  if( response.data.result === 0 || response.data.result === 1002 || response.data.state==0){	//正常状态码
     return Promise.resolve(response.data);
   }else{
     getnotice(response.data.message)

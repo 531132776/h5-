@@ -97,7 +97,7 @@ export default {
     Supportservices:'Support services',
     correctTip:'Sorry, the information you filled in is incomplete and failed to submit.',
     WarmTip:'Please fill in correct and valid identity information in order to pass the mortgage review. This information is for use only by Sandy Financial Audit',
-    applications:'your application was successfully',
+    applications:'your application is registed successfully',
     applications2:'our customer service will contact you shortly'
     /**
      * 

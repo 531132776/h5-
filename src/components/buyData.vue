@@ -140,9 +140,7 @@ export default {
             if(!this.verifiData()){
                  return false;
             }else{
-                this.$axios.post('/api/exterior/member/saveNewBuildingMemberApply',this.$qs.stringify(this.saveData) ).then(res=>{
-                    console.log(res.data,res.result==0)
-                    
+                this.$axios.post('/api/exterior/member/saveNewBuildingMemberApply',this.$qs.stringify(this.saveData) ).then(res=>{                    
                     if(res.result==0){
                         this.$router.push({path:'/contract',query:{'projectId':res.dataSet.projectId,'id':res.dataSet.id}});
                     }else{

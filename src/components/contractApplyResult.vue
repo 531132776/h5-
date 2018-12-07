@@ -30,8 +30,6 @@ export default {
     data(){
         return{
             url:'',
-            isAndroid:false,
-            isiOS:false,
         }
     },
     created() {

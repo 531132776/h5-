@@ -110,6 +110,7 @@ export default {
     },
     mounted() {
         this.getNewBuildingMemberApply(); 
+        console.log( sessionStorage.getItem('signData') )
         if( this.$route.query.type && this.$route.query.type=='signed'){
             window.scrollTo(0,document.body.scrollHeight);//滚动到页面底部
             if( sessionStorage.getItem('signData') ) {

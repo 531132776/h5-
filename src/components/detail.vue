@@ -1,5 +1,5 @@
 <template>
-    <div class="page developers-page" >
+    <div class="page developers-page" v-if="houseDetail">
         <!-- <header class="developers-header">
             <router-link :to="{path:'/'}"><i class="icon-fanhui-copy1 gray"></i></router-link>
             楼盘信息
@@ -12,7 +12,7 @@
                 <li class="auto underline"><span class="gray">RERA Registration NO:</span> <span>20666</span></li>  
                 <li><span class="gray">{{$t('ProjectName')}}:</span><span>{{houseDetail.projectName}}</span></li>
                 <li><span class="gray">{{$t('developer')}}:</span><span>{{houseDetail.developers}}</span></li>
-                <li><span class="gray">{{$t('ProjectLocation2')}}:</span><span>{{houseDetail.community}}</span></li>
+                <li><span class="gray">{{$t('ProjectLocation2')}}:</span><span>{{houseDetail.community}}{{houseDetail.subCommunity}}</span></li>
                 <li><span class="gray">{{$t('PropertyType')}}:</span><span>{{houseDetail.houseTypeName}}</span></li>
                 <li>
                     <span class="gray">{{$t('CompletionTime')}}:</span>
@@ -57,25 +57,25 @@
 export default {
     data(){
         return{
-            houseDetail:{},
+            houseDetail:'',
             houseTypeName:'',
             item:[]
         }
     },
     created() {
-             console.log(sessionStorage.getItem('scrollTop'))
+        
     },
     mounted() {
         if(sessionStorage.getItem('getDict1')){
             this.item = JSON.parse(sessionStorage.getItem('getDict1'));
+            this.getDirectSalesDetails();
         }else{
             this.getDict();    
-        }
-        
-        this.getDirectSalesDetails();
+        }       
     },
     methods:{
         getDirectSalesDetails(){
+            let _this = this;
             if(!this.$store.state.isLoading){
                 this.$vux.loading.show();
             }
@@ -87,10 +87,11 @@ export default {
                         'id':res.dataSet.id,
                         'applyId':res.dataSet.applyId,
                     }))    
+
                     if(res.dataSet.housingTypeDictcode!=""){
                         this.item.forEach(ele=>{
-                            if(ele.id==res.dataSet.housingTypeDictcode){
-                                this.houseTypeName = ele.itemValueEn;
+                            if(ele.id===+res.dataSet.housingTypeDictcode){
+                                this.houseTypeName = this.$i18n.locale=='en'? ele.itemValueEn : ele.itemValue ;
                             }
                         })
                     }
@@ -104,34 +105,39 @@ export default {
         getDict(val){
             this.$axios.post('/api/exterior/get/dict/1').then(res=>{
                 if(res.result ==0){
-                    // var arr = res.dataSet.items;
                     this.item = res.dataSet.items;
-                    // console.log(this.item)
-                    sessionStorage.setItem('getDict1',JSON.stringify(this.item));
+                    sessionStorage.setItem('getDict1',JSON.stringify(res.dataSet.items));
+                    if(!this.$store.state.isLoading){
+                        this.$vux.loading.show();
+                    }
+                    setTimeout(() => {
+                        this.getDirectSalesDetails();    
+                    }, 300);
+                    
                 }
             }).catch(err=>{
 
             })
         },
-    goToLogin(){
-      let _this = this;
-      this.$vux.confirm.show({
-        title:_this.$t('prompt'),
-        content:'you can view after login, please select whether to log in or not',
-        confirmText:_this.$t('confirm'),
-        cancelText:_this.$t('cancel'),
-        onCancel () {
-        //you can view after login,please select whether to log in or not
-        },  
-        onConfirm () {
-          if(_this.isAndroid){
-              window.android.goLogin();
-          }else if(_this.isiOS  ){
-              window.webkit.messageHandlers.goLogin.postMessage(0);
-          }
+        goToLogin(){
+            let _this = this;
+            this.$vux.confirm.show({
+                title:_this.$t('prompt'),
+                content:_this.$t('viewAfterLogin'),
+                confirmText:_this.$t('confirm'),
+                cancelText:_this.$t('cancel'),
+                onCancel () {
+                //you can view after login,please select whether to log in or not
+                },  
+                onConfirm () {
+                if(_this.isAndroid){
+                    window.android.goLogin();
+                }else if(_this.isiOS  ){
+                    window.webkit.messageHandlers.goLogin.postMessage(0);
+                }
+                }
+            })
         }
-      })
-    }
     }
 }
 </script>

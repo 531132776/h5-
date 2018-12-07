@@ -136,8 +136,8 @@ export default {
                 config 
                 ).then(res=>{
                     if(res.state==0){
-                        console.log(res.data);
-                        sessionStorage.setItem('signData',JSON.stringify(res.data) );
+                        console.log(res);
+                        sessionStorage.setItem('signData',JSON.stringify(res) );
                         // this.$router.go(-1);
                         this.$router.replace({
                             path:'/contract',

@@ -212,21 +212,20 @@ export default {
   },
   //路由变化
   beforeRouteLeave(to, from ,next) {
-    window.removeEventListener('scroll',this.handelscroll,true)
-    next()
+    window.removeEventListener('scroll',this.handelscroll,true);
+    window.removeEventListener('popstate', this.goBack, false);
+    next();
   },
   created() {
   },
   mounted() {
-    console.log(this.$refs.a)
-      console.log(this.token)
-      if(sessionStorage.getItem('searchVal')){
-          this.searchVal = JSON.parse(sessionStorage.getItem('searchVal')) ;
-      }
+    // console.log(this.$refs.a)
+      // if(sessionStorage.getItem('searchVal')){
+      //     this.searchVal = JSON.parse(sessionStorage.getItem('searchVal')) ;
+      // }
       this.getDirectSalesPropertyList();
       this.getDevelopers();
       this.getPropertyArea();
-
 
       if (window.history && window.history.pushState) {
             history.pushState(null, null, document.URL);
@@ -241,7 +240,12 @@ export default {
    sessionStorage.setItem('scrollTop',this.scrollTop)
   },
   activated () {
-   this.$refs.a.scrollEl.scrollTop = sessionStorage.getItem('scrollTop')
+   this.$refs.a.scrollEl.scrollTop = sessionStorage.getItem('scrollTop');
+   window.addEventListener('scroll',this.handelscroll,true)
+   if (window.history && window.history.pushState) {
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', this.goBack, false);
+      }
   },
 
 
@@ -251,7 +255,7 @@ export default {
       this.$nextTick(()=>{
         let el = this.$refs.a.scrollEl;
         this.scrollTop = el.scrollTop
-        console.log(this.$refs.a.scrollEl.scrollTop)
+        // console.log(this.$refs.a.scrollEl.scrollTop)
         sessionStorage.setItem('scrollTop',this.scrollTop)
       })
     },
@@ -262,7 +266,6 @@ export default {
             this.$vux.loading.show();
         }
         this.$axios.post('/api/exterior/houses/getDirectSalesPropertyList',this.$qs.stringify(this.searchVal) ).then(res=>{
-            // console.log(res.data)
             if(res.result==0){
               if(loaded){
                 loaded('done');
@@ -278,7 +281,6 @@ export default {
     //获取开发商列表
     getDevelopers(){
         this.$axios.post('/api/exterior/houses/getDevelopers',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
-            // console.log(res.data)
             if(res.result==0){
                 this.developersList = res.dataSet;
                 this.developersList.unshift({developers:''});
@@ -289,7 +291,6 @@ export default {
     // 获取区域列表
     getPropertyArea(){
         this.$axios.post('/api/exterior/houses/getPropertyArea',this.$qs.stringify({token:this.token,city:this.city}) ).then(res=>{
-            // console.log(res.data)
             if(res.result==0){
                 this.housesAreaList = res.dataSet;
                 this.housesAreaList.unshift({community: ""})
@@ -306,7 +307,7 @@ export default {
       if(val==null&&name){
         this.filterList = [];
       }
-      
+      this.searchVal.pageIndex = 1;
       this.isShowSort = false;
       this.houseList = [];
       this.getDirectSalesPropertyList();
@@ -314,12 +315,14 @@ export default {
     chosedevelopers(val){
       this.searchVal.developers = val;
       this.isShowDevelopers = false;
+      this.searchVal.pageIndex = 1;
       this.houseList = [];
       this.getDirectSalesPropertyList();
     },
     choseCommunity(val){
       this.searchVal.area = val;
       this.isShowArea = false;
+      this.searchVal.pageIndex = 1;
       this.houseList = [];
       this.getDirectSalesPropertyList();
     },
@@ -334,6 +337,7 @@ export default {
     },
     loadmore(loaded) {
       var _this = this;
+      
       if(this.pageInfo.pages <= this.searchVal.pageIndex){
         loaded('done');
         return false;
@@ -381,7 +385,7 @@ export default {
       let _this = this;
       this.$vux.confirm.show({
         title:_this.$t('prompt'),
-        content:'you can view after login, please select whether to log in or not',
+        content:_this.$t('viewAfterLogin'),
         confirmText:_this.$t('confirm'),
         cancelText:_this.$t('cancel'),
         onCancel () {
@@ -395,7 +399,7 @@ export default {
           }
         }
       })
-    }   
+    },   
   },
   
   destroyed(){

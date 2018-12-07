@@ -94,8 +94,11 @@ export default {
                     if(loaded){
                         loaded('done');
                     }
+                    if(res.dataSet){
                     this.houseList = this.houseList.concat(res.dataSet);
                     this.pageInfo = res.pageInfo;
+                    }
+
                 }
             }).catch(res=>{}).finally(() => this.$vux.loading.hide());  
         },
