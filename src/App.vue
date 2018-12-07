@@ -2,8 +2,11 @@
 
   <div id="app">
     <!--<transition name="slide">-->
-      
-    <router-view></router-view>
+      <keep-alive>
+ <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+<router-view v-if="!$route.meta.keepAlive"></router-view>
+    <!-- <router-view></router-view> -->
     <loading v-model="isLoading"></loading>
     <!--</transition>-->
   </div>

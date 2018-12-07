@@ -56,7 +56,7 @@ Vue.filter('changeUnit', function(val) {
 
 let str = "";
 if(window.location.hostname == "localhost"){
-  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMTIwMjA0NjM1NDEwIiwiZXhwIjoiRGVjIDYsIDIwMTggNTo0OTo0NSBQTSIsInVzZXJJZCI6IjQ2MDkiLCJhcmVhQ29kZSI6Ijg2IiwibW9ibGUiOiIxODUwMDAxMjIyMiJ9.M2I5ZTcwNmNlNGM4OTkxYWMzYjA2MDkwMGJhNGExYzdiMTQ5NGVlZTI4NGY4MjZmYTU0ZDgyODZmOTY4NWQ0Mg==&language=en&city=shenzhen'
+  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjA2MjMxODQwODA0IiwiZXhwIjoiRGVjIDcsIDIwMTggMTI6MjM6MDkgQU0iLCJ1c2VySWQiOiI0NjMxIiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg5MjY0ODQ5NzEifQ==.ZTAyN2ZiOGEwN2M1MDNiYzM3ZDYwMTIyYmYyNjFmM2JkNThkMWFhYjRjMDZjOGZlYzg5ZDA3Mjc1ZDc2YWQ2MA==&language=en&city=shenzhen'
 }else{
   str = window.location.href;
 }

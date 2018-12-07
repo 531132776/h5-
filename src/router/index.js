@@ -12,7 +12,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Directly from developer',
-          titleCn:'开发商直售'
+          titleCn:'开发商直售',
+          keepAlive:true
       }
     },
     {

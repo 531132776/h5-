@@ -23,16 +23,16 @@
             <i class="icon-sanjiaoxing" :class="isShowArea==true?'color-primary':''"></i>  
           </span>       
       </div>
-        <pull-to :top-load-method="refresh" class="spring-scroller" :on-refresh="refresh" :bottom-load-method="loadmore" :bottomConfig="bottomConfig" :topConfig='topConfig' style="height:84%;">
-      <div class="developers-list">
+        <pull-to :top-load-method="refresh" ref="a" class="spring-scroller" :on-refresh="refresh" :bottom-load-method="loadmore" :bottomConfig="bottomConfig" :topConfig='topConfig' style="height:84%;">
+      <div class="developers-list" >
           <div class="developers-list-section">
             <div class="space-notice" v-if="houseList==null || houseList.length==0">
               <i class="icon-Artboard19"></i>
               <p>NONE</p>
             </div>
             <ul v-else>
-              <li v-for="(item,idx) in houseList" :key="idx" @click="setSession(0)">
-                <router-link :to="{path:'/detail',query:{'id':item.id}}" class="clearfix" >
+              <li v-for="(item,idx) in houseList" :key="idx" @click="setSession(0,item)">
+                <!-- <router-link :to="{path:'/detail',query:{'id':item.id}}" class="clearfix" > -->
                   <div class="clearfix">
                   <div class="left">
                     <img alt="" v-lazy="item.projectMainImg" :key="item.projectMainImg">
@@ -57,7 +57,7 @@
                         </p>
                   </div>
                   </div>
-                </router-link>
+                <!-- </router-link> -->
               </li>
             </ul>
             
@@ -206,13 +206,19 @@ export default {
         stayDistance: 50,
         triggerDistance: 70        
       },
-      filterList:[]
+      filterList:[],
+      scrollTop:''
     }
   },
-
+  //路由变化
+  beforeRouteLeave(to, from ,next) {
+    window.removeEventListener('scroll',this.handelscroll,true)
+    next()
+  },
   created() {
   },
   mounted() {
+    console.log(this.$refs.a)
       console.log(this.token)
       if(sessionStorage.getItem('searchVal')){
           this.searchVal = JSON.parse(sessionStorage.getItem('searchVal')) ;
@@ -226,9 +232,30 @@ export default {
             history.pushState(null, null, document.URL);
             window.addEventListener('popstate', this.goBack, false);
       }
-
+      //监听滚动事件
+      window.addEventListener('scroll',this.handelscroll,true)
   },
+  
+
+  deactivated (){
+   sessionStorage.setItem('scrollTop',this.scrollTop)
+  },
+  activated () {
+   this.$refs.a.scrollEl.scrollTop = sessionStorage.getItem('scrollTop')
+  },
+
+
   methods:{
+    //获取滚动高
+    handelscroll() {
+      this.$nextTick(()=>{
+        let el = this.$refs.a.scrollEl;
+        this.scrollTop = el.scrollTop
+        console.log(this.$refs.a.scrollEl.scrollTop)
+        sessionStorage.setItem('scrollTop',this.scrollTop)
+      })
+    },
+    
     //获取开发商直售列表
     getDirectSalesPropertyList(loaded){ 
         if(!this.$store.state.isLoading){
@@ -318,7 +345,12 @@ export default {
     gettest(){
         
     },
-    setSession(type){
+    setSession(type,item){
+      document.removeEventListener('scroll', this.handelscroll ,true);
+      this.$router.push({
+        path:'/detail',
+        query:{'id':item.id}
+      })
       if(type==0){
         sessionStorage.setItem('searchVal',JSON.stringify(this.searchVal))
       }else{
@@ -337,6 +369,7 @@ export default {
       }    
     },
     goBack(){
+      document.addEventListener('scroll',this.handelscroll,true)
         console.log(this.isAndroid,'aaa'  )
         if(this.isAndroid){
             window.android.goHome();
@@ -364,6 +397,7 @@ export default {
       })
     }   
   },
+  
   destroyed(){
       window.removeEventListener('popstate', this.goBack, false);
   },

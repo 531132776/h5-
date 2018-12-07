@@ -63,7 +63,7 @@ export default {
         }
     },
     created() {
-             
+             console.log(sessionStorage.getItem('scrollTop'))
     },
     mounted() {
         if(sessionStorage.getItem('getDict1')){
