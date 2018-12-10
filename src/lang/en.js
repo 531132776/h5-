@@ -40,7 +40,7 @@ export default {
     ViewDetails:'View details',
     PurchaseSuccessful:'Purchase successful',
     personalInformation:'Personal information',
-    okIgotIt:"Ok, I've got it",
+    okIgotIt:"Ok, I got it",
     downContract:'Download the contract',
     ProjectInfo:'Project information',
     DirectlyDeveloper:'Directly from developer',
