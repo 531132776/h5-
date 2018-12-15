@@ -95,7 +95,7 @@ export default {
     Personal2:'专人协助，当天过户',
     Supportservices:'支持服务',
     correctTip:'很抱歉，您填写的资料不完整未能提交成功',
-    WarmTip:'请您填写真实有效的身份信息，以便通过贷款审核，您的信息仅供sandy金融审核使用，请您放心填写',
+    WarmTip:'请填写本人真实信息，您的信息仅供sandy服务审核使用，请放心填写',
     applications:'恭喜您申请成功',
     applications2:'客服人员会稍后联系您'
 

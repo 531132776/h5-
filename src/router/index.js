@@ -113,8 +113,8 @@ export default new Router({
         require(['../components/finance.vue'], resolve);
       },
       meta: {
-          titleEn: 'Sandy finance',
-          titleCn:'Sandy 服务'
+          titleEn: 'Sandy services',
+          titleCn:'Sandy服务'
       }
     },
     {

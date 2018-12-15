@@ -41,7 +41,7 @@
                     </i>
                 </span>
                 </li>
-                <li><span class="gray">{{$t('price')}}:</span><span>{{houseDetail.minHouseRent}}AED - {{houseDetail.maxHouseRent}}AED</span></li>
+                <li><span class="gray">{{$t('price')}}:</span><span>{{houseDetail.formatMinHouseRent}}AED - {{houseDetail.formatMaxHouseRent}}AED</span></li>
             </ul>
             <img v-if="houseDetail.projectMainImg2" class="big-img" v-lazy="houseDetail.projectMainImg2" alt="">
         </div>
