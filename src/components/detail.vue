@@ -47,7 +47,9 @@
         </div>
         <div class="footer">
            
-            <router-link class="button1 bg-primary" v-if="houseDetail.applyId>=0&&houseDetail.applyId!=null" :to="{path:'/buyData',query:{'id':houseDetail.id,'applyId':houseDetail.applyId}}">{{$t('Apply')}}</router-link>
+            <!-- <router-link class="button1 bg-primary" v-if="houseDetail.applyId>=0&&houseDetail.applyId!=null" :to="{path:'/buyData',query:{'id':houseDetail.id,'applyId':houseDetail.applyId}}">{{$t('Apply')}}</router-link> -->
+            <a href="javascript:;" v-if="houseDetail.applyId>=0&&houseDetail.applyId!=null"  class="button1 bg-primary" @click="goToApply">{{$t('Apply')}}</a>
+
             <a href="javascript:;" v-else-if="houseDetail.applyId==null"  class="button1 bg-primary" @click="goToLogin">{{$t('Apply')}}</a>
             <a href="javascript:;" v-else class="button1 bg-primary a_disable">{{$t('Apply')}}</a>
         </div>
@@ -137,6 +139,17 @@ export default {
                 }
                 }
             })
+        },
+        goToApply(){
+            this.$axios.post(`/api/exterior/member/info/get?token=${this.token}`).then(res=>{
+                if(res.result==0){
+                    this.$router.push({
+                        path:'/buyData',
+                        query:{'id':this.houseDetail.id,'applyId':this.houseDetail.applyId}
+                    })
+                }
+            }).catch(err=>{
+            })            
         }
     }
 }

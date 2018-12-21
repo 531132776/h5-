@@ -50,7 +50,8 @@ export default {
     actualCompletionDate:'The actual completion date is subject to the project development progress',
     confirm:'confirm',
     cancel:'cancel',
-    viewAfterLogin:'you can view after login, please select whether to log in or not',    
+    viewAfterLogin:'you can view after login, please select whether to log in or not', 
+    loginFaild:'Login failed. Please login again',   
 
 
     // 财务

@@ -56,7 +56,7 @@ Vue.filter('changeUnit', function(val) {
 
 let str = "";
 if(window.location.hostname == "localhost"){
-  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjA2MjMxODQwODA0IiwiZXhwIjoiRGVjIDcsIDIwMTggMTI6MjM6MDkgQU0iLCJ1c2VySWQiOiI0NjMxIiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg5MjY0ODQ5NzEifQ==.ZTAyN2ZiOGEwN2M1MDNiYzM3ZDYwMTIyYmYyNjFmM2JkNThkMWFhYjRjMDZjOGZlYzg5ZDA3Mjc1ZDc2YWQ2MA==&language=en&city=shenzhen'
+  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjIwMTE1NDQzNjcxIiwiZXhwIjoiRGVjIDIwLCAyMDE4IDEyOjAyOjE3IFBNIiwidXNlcklkIjoiNDY0OCIsImFyZWFDb2RlIjoiODYiLCJtb2JsZSI6IjE4NTcxNTc4MzUzIn0=.OGUyYjE3OWRmYzM5ODc2MTI5ODE4YTFmNzRmYWRlOTIxZjNmNGIyZjkxMzgxM2IyMDI1ZmNmYzNmODAxYzBhNg==&language=zh&city=shenzhen'
 }else{
   str = window.location.href;
 }
@@ -135,14 +135,32 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => { 
+  console.log( response.data )
   if( response.data.result === 0 || response.data.result === 1002 || response.data.state==0){	//正常状态码
     return Promise.resolve(response.data);
+  }else if( response.data.result === 2001){
+    // token失效，让用户重新登录
+    Vue.$vux.confirm.show({
+      title:i18n.t('prompt'),
+      content:i18n.t('loginFaild'),
+      confirmText:i18n.t('confirm'),
+      cancelText:i18n.t('cancel'),
+      onCancel () {
+
+      },  
+      onConfirm () {
+        if(isAndroid){
+            window.android.goLogin();
+        }else if(isiOS  ){
+            window.webkit.messageHandlers.goLogin.postMessage(0);
+        }
+      }
+    })
   }else{
-    getnotice(response.data.message)
+    Vue.$vux.toast.text(response.data.message);
     return Promise.reject(response.data);
   }
 }, error => {
-  // getnotice('请求超时,请重新加载')
   return Promise.reject(error)
 })
 

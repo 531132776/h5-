@@ -13,7 +13,8 @@ export default new Router({
       meta: {
           titleEn: 'Directly from developer',
           titleCn:'开发商直售',
-          keepAlive:true
+          keepAlive:true,
+          requireAuth: false
       }
     },
     {
@@ -24,7 +25,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Project Information',
-          titleCn:'楼盘信息'
+          titleCn:'楼盘信息',
+          requireAuth: false
       }
     },
     {
@@ -35,7 +37,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Appointment details',
-          titleCn:'预约详情'
+          titleCn:'预约详情',
+          requireAuth: true
       }
     },
     {
@@ -46,7 +49,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Purchase application details',
-          titleCn:'申购详情'
+          titleCn:'申购详情',
+          requireAuth: true
       }
     },
     {
@@ -59,6 +63,7 @@ export default new Router({
           titleEn: 'Complete personal information',
           titleCn:'完善个人信息',
           // keepAlive:true
+          requireAuth: true
       }
     },
     {
@@ -69,7 +74,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Contract information',
-          titleCn:'合同信息'
+          titleCn:'合同信息',
+          requireAuth: true
       }
     },
     {
@@ -80,7 +86,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Application results',
-          titleCn:'申请结果'
+          titleCn:'申请结果',
+          requireAuth: true
       }
     },
     {
@@ -91,7 +98,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Contract information',
-          titleCn:'合同签名'
+          titleCn:'合同签名',
+          requireAuth: true
       }
     },
     // nationalList 国籍选择列表
@@ -103,7 +111,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Nationality selection',
-          titleCn:'国籍选择'
+          titleCn:'国籍选择',
+          requireAuth: true
       }
     },
     {
@@ -114,7 +123,8 @@ export default new Router({
       },
       meta: {
           titleEn: 'Sandy services',
-          titleCn:'Sandy服务'
+          titleCn:'Sandy服务',
+          requireAuth: true
       }
     },
     {
@@ -127,6 +137,7 @@ export default new Router({
           titleEn: 'Complete personal information',
           titleCn:'完善个人信息',
           // keepAlive:true
+          requireAuth: true
       }
     }
   ]
