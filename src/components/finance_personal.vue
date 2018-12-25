@@ -74,7 +74,7 @@
 
                 <x-input :title="$t('passportNumber')" v-model="saveData.passportNumber" :placeholder="$t('pleaseenter')"></x-input>
 
-                <x-input type='number' :title="$t('telephone')" v-model="saveData.telephone" :placeholder="$t('pleaseenter')" ></x-input>
+                <x-input type='number' :title="$t('Mobile')" v-model="saveData.telephone" :placeholder="$t('pleaseenter')" ></x-input>
 
                 <x-input type='number' :title="$t('loanAmount')" v-model="saveData.loanAmount" :placeholder="$t('pleaseenter')"></x-input>
 

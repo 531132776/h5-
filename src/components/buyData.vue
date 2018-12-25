@@ -30,16 +30,15 @@
             </div>
             <x-input :title="$t('passportNumber')" v-model="saveData.passportNumber" :placeholder="$t('pleaseenter')"></x-input>
 
-            <x-input :title="$t('Telephone')" v-model="saveData.contactWay" :placeholder="$t('pleaseenter')" type="number"></x-input>
+            <x-input :title="$t('Mobile')" v-model="saveData.contactWay" :placeholder="$t('pleaseenter')" type="number"></x-input>
 
             <x-input :title="$t('email')" v-model="saveData.email" :placeholder="$t('pleaseenter')"  ></x-input>
         </group>
         <group :title="$t('ProjectDetail')" label-width="5em">
             <x-input :title="$t('ProjectName')" v-model="projectData.projectName" :placeholder="$t('pleaseenter')" :readonly="true"></x-input>
-            <x-input :title="$t('developer')" v-model="projectData.developers" :placeholder="$t('pleaseenter')" :readonly="true"></x-input>
+            <x-input :title="$t('nameOfdeveloper')" v-model="projectData.developers" :placeholder="$t('pleaseenter')" :readonly="true"></x-input>
         </group>    
         <div class="footer developer-footer">
-            
             <!-- <a href="javascript:;" class="button2 bg-primary" @click="updateNewBuildingMemberApply()" v-if="projectData.applyId>0">{{$t('modify')}}</a> -->
             <a href="javascript:;" class="button2 bg-primary" @click="submitData()" >{{$t('Submit')}}</a>
         </div>   
