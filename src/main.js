@@ -30,6 +30,10 @@ Vue.use(LoadingPlugin);
 Vue.use(ToastPlugin);
 Vue.use(ConfirmPlugin);
 
+//图片查看器
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
 
 import zh from './lang/zh'
 import en from './lang/en';
@@ -56,7 +60,7 @@ Vue.filter('changeUnit', function(val) {
 
 let str = "";
 if(window.location.hostname == "localhost"){
-  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjIwMTE1NDQzNjcxIiwiZXhwIjoiRGVjIDIwLCAyMDE4IDEyOjAyOjE3IFBNIiwidXNlcklkIjoiNDY0OCIsImFyZWFDb2RlIjoiODYiLCJtb2JsZSI6IjE4NTcxNTc4MzUzIn0=.OGUyYjE3OWRmYzM5ODc2MTI5ODE4YTFmNzRmYWRlOTIxZjNmNGIyZjkxMzgxM2IyMDI1ZmNmYzNmODAxYzBhNg==&language=en&city=shenzhen'
+  str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjA2MjMxODQwODA0IiwiZXhwIjoiRGVjIDI5LCAyMDE4IDM6MDc6NDkgUE0iLCJ1c2VySWQiOiI0NjMxIiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg5MjY0ODQ5NzEifQ==.OWNjMWViODE0NGM0NjUwMGUxNGE2NmFlZGE3ZjVmOWE1NjE2MjhhNGYxNWUzYmUyYjMyMmZiZDE3N2NlMTg0ZA==&language=zh&city=shenzhen'
 }else{
   str = window.location.href;
 }
@@ -135,7 +139,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => { 
-  console.log( response.data )
+  // console.log( response.data )
   if( response.data.result === 0 || response.data.result === 1002 || response.data.state==0){	//正常状态码
     return Promise.resolve(response.data);
   }else if( response.data.result === 2001){

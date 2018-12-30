@@ -71,5 +71,8 @@ const webpackConfig = {
       }
     ]
   },
+  externals: {
+    'google': 'google'
+  },
 }
 module.exports = vuxLoader.merge(webpackConfig, { plugins: ['vux-ui'] })

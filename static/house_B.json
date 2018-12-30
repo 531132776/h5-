@@ -1,0 +1,198 @@
+{
+    "images2":[
+        {
+            "src":"./house_B/1.png",
+            "text":"鞋架",
+            "text2":"Shoerack",
+            "id":"20021"
+        },
+        {
+            "src":"./house_B/2.png",
+            "text":"落地灯",
+            "text2":"Floor Lamp",
+            "id":"20022"
+        },
+
+        {
+            "src":"./house_B/3.png",
+            "text":"沙发椅",
+            "text2":"Sofa",
+            "id":"20023"
+        },
+        {
+            "src":"./house_B/4.png",
+            "text":"靠背椅",
+            "text2":"Chair",
+            "id":"20024"
+        },
+        {
+            "src":"./house_B/5.png",
+            "text":"沙发桌",
+            "text2":"Coffee table",
+            "id":"20025"
+        },
+        {
+            "src":"./house_B/6.png",
+            "text":"书架",
+            "text2":"Book shelf",
+            "id":"20026"
+        },
+        {
+            "src":"./house_B/7.png",
+            "text":"电视",
+            "text2":"TV",
+            "id":"20027"
+        },
+        {
+            "src":"./house_B/8.png",
+            "text":"电视架",
+            "text2":"TV stand",
+            "id":"20028"
+        },
+        {
+            "src":"./house_B/9.png",
+            "text":"艺术品",
+            "text2":"Art works",
+            "id":"20029"
+        },
+        {
+            "src":"./house_B/10.png",
+            "text":"餐具",
+            "text2":"Table ware",
+            "id":"20030"
+        },
+        {
+            "src":"./house_B/11.png",
+            "text":"锅",
+            "text2":"Wok",
+            "id":"20031"
+        },
+        {
+            "src":"./house_B/12.png",
+            "text":"烤箱",
+            "text2":"Oven",
+            "id":"20032"
+        },
+        {
+            "src":"./house_B/13.png",
+            "text":"洗衣机",
+            "text2":"Washing Machine",
+            "id":"20033"
+        },
+        {
+            "src":"./house_B/14.png",
+            "text":"冰箱",
+            "text2":"Refrigerator",
+            "id":"20034"
+        },
+        {
+            "src":"./house_B/15.png",
+            "text":"电灶台",
+            "text2":"Electric stove",
+            "id":"20035"
+        },
+        {
+            "src":"./house_B/16.png",
+            "text":"燃气炉灶",
+            "text2":"gas stove",
+            "id":"20036"
+        },
+        {
+            "src":"./house_B/17.png",
+            "text":"微波炉",
+            "text2":"Microwave",
+            "id":"20037"
+        },
+
+        {
+            "src":"./house_B/18.png",
+            "text":"咖啡机",
+            "text2":"Coffee machine",
+            "id":"20038"
+        },
+        {
+            "src":"./house_B/19.png",
+            "text":"电热壶",
+            "text2":"kettle",
+            "id":"20039"
+        },
+        {
+            "src":"./house_B/20.png",
+            "text":"洗碗机",
+            "text2":"dishwasher",
+            "id":"20040"
+        },
+        {
+            "src":"./house_B/21.png",
+            "text":"垃圾桶",
+            "text2":"Trash Bin",
+            "id":"20041"
+        },
+        {
+            "src":"./house_B/22.png",
+            "text":"餐桌椅",
+            "text2":"Dining chair",
+            "id":"20042"
+        },
+        {
+            "src":"./house_B/23.png",
+            "text":"淋浴",
+            "text2":"Shower",
+            "id":"20043"
+        },
+        {
+            "src":"./house_B/24.png",
+            "text":"浴池",
+            "text2":"Bath",
+            "id":"20044"
+        },
+        {
+            "src":"./house_B/25.png",
+            "text":"床",
+            "text2":"Bed",
+            "id":"20045"
+        },
+        {
+            "src":"./house_B/26.png",
+            "text":"床垫",
+            "text2":"Mattress",
+            "id":"20046"
+        },
+        {
+            "src":"./house_B/27.png",
+            "text":"床头柜",
+            "text2":"Bedside Table",
+            "id":"20047"
+        },
+        {
+            "src":"./house_B/28.png",
+            "text":"台灯",
+            "text2":"Bed lamp",
+            "id":"20048"
+        },
+        {
+            "src":"./house_B/29.png",
+            "text":"梳妆台",
+            "text2":"dressing table",
+            "id":"20049"
+        },
+        {
+            "src":"./house_B/30.png",
+            "text":"窗帘",
+            "text2":"Curtain",
+            "id":"20050"
+        },
+        {
+            "src":"./house_B/31.png",
+            "text":"书桌",
+            "text2":"Desk",
+            "id":"20051"
+        },
+        {
+            "src":"./house_B/32.png",
+            "text":"书桌椅",
+            "text2":"DeskChair",
+            "id":"20052"
+        }
+    ]
+}

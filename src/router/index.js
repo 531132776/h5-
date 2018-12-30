@@ -139,6 +139,33 @@ export default new Router({
           // keepAlive:true
           requireAuth: true
       }
-    }
+    },
+    //分享
+    {
+      path: '/wxShare',
+      name: 'wxShare',
+      component: (resolve)=> {
+        require(['../components/wxShare.vue'], resolve);
+      },
+      meta: {
+          titleEn: 'Details of housing supply',
+          titleCn:'房源详情',
+          // keepAlive:true
+          requireAuth: true
+      }
+    },
+    {
+      path: '/Onlinebargaining',
+      name: 'Onlinebargaining',
+      component: (resolve)=> {
+        require(['../components/Onlinebargaining.vue'], resolve);
+      },
+      meta: {
+          titleEn: 'App install',
+          titleCn:'App install',
+          // keepAlive:true
+          requireAuth: true
+      }
+    },
   ]
 })
