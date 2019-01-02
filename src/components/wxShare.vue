@@ -482,7 +482,7 @@
         },
         methods: {
              GetUrlParam(paraName) {
-        // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2104&houseType=0";
+        // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2114&houseType=0";
         　　　　var url = document.location.toString();
         　　　　var arrObj = url.split("?");
                         console.log(arrObj)
@@ -1117,7 +1117,7 @@
                         display: flex;
                         flex-flow: column nowrap;
                         align-items: center;
-
+                        white-space: nowrap;
                         span:nth-child(2) {
                             font-size: .25rem;
                             padding-top: .02rem;
@@ -1135,7 +1135,7 @@
 
                         li {
                             width: 20%;
-                            padding: .2rem 0;
+                            /* padding: .2rem 0; */
                             display: flex;
                             flex-flow: column nowrap;
                             justify-content: space-around;
@@ -1170,6 +1170,8 @@
                                 font-size: .23rem;
                                 color: #666666;
                                 text-align: center;
+                                display: inline-block;
+                                height: .8rem;
                             }
                         }
                     }
@@ -1195,6 +1197,7 @@
 
                             span {
                                 font-size: .24rem;
+                                height: auto;
                             }
                         }
                         li:nth-of-type(even){
