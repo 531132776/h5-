@@ -559,7 +559,7 @@
             //房屋状态
             getdict(houseTypeInfo){
                 var type=2
-                this.$axios.post('api/exterior/get/dict/'+`${type}`).then(res =>{
+                this.$axios.post('/api/exterior/get/dict/'+`${type}`).then(res =>{
                     var arr= [];
                     arr = res.dataSet.items;
                     var findVal = arr.find(item => { return item.id == houseTypeInfo.housingStatus})
@@ -571,7 +571,7 @@
             //房屋类型
             typeofHouse(houseTypeInfo){
                 var type=1
-                this.$axios.post('api/exterior/get/dict/'+`${type}`).then(res =>{
+                this.$axios.post('/api/exterior/get/dict/'+`${type}`).then(res =>{
                     var arr= [];
                     arr = res.dataSet.items;
                     var findVal = arr.find(item => { return item.id == houseTypeInfo.housingTypeDictcode})
@@ -583,7 +583,7 @@
             //房屋配置B
             Houseimgallocation(houseTypeInfo){
                 var type=0
-                this.$axios.post('api/exterior/get/dict/'+`${type}`).then(res =>{
+                this.$axios.post('/api/exterior/get/dict/'+`${type}`).then(res =>{
                     console.log('房屋配置B:',res);
                     var newarr = res.dataSet.items || [];
                     var houseB = this.houseB;
@@ -611,7 +611,7 @@
             HouseimgMatching(houseTypeInfo){
                 console.log(houseTypeInfo.houseDecorationDictcode)
                 var type=3
-                this.$axios.post('api/exterior/get/dict/'+`${type}`).then(res =>{
+                this.$axios.post('/api/exterior/get/dict/'+`${type}`).then(res =>{
                     console.log('房屋配套A:',res);
                     var newarr = res.dataSet.items || [];
                     var houseA = this.houseA;
@@ -638,7 +638,7 @@
             },
             //房源推荐
             houseRecommend(){
-                this.$axios.post('api/exterior/member/recommendHouses',this.$qs.stringify({token:this.token,city:this.city})).then(res => {
+                this.$axios.post('/api/exterior/member/recommendHouses',this.$qs.stringify({token:this.token,city:this.city})).then(res => {
                     console.log(res)
                     this.renthouseRecommend = res.dataSet.rent || [];//租房房源推荐
                     this.buyhouseRecommend = res.dataSet.sell || [];//买房房源推荐
