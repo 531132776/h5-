@@ -176,7 +176,13 @@ export default {
     DownloadtotheGoogleAppMarket:'去Google应用市场下载',
     Ifpleasecorner:'如已安装应用,请点击右上角',
     SelectOpeninSafari:'选择在Safari中打开',
-    SelectOpeninBrowser:'选择在浏览器中打开'
+    SelectOpeninBrowser:'选择在浏览器中打开',
+    Housingresources:'房源',
+    onechequeyear:'一张支票',
+    twochequeyear:'两张支票',
+    fourchequeyear:'四张支票',
+    sixchequeyear:'六张支票',
+    Twelvechequeyear:'十二张支票',
     /**
      * 
      * Property Type 房屋类型 PropertyType

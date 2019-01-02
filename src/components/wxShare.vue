@@ -9,7 +9,7 @@
                         </swiper>
             
                         <div class="house_id">
-                            <span>房源ID：<span>{{houseTypeInfo.id}}</span></span>
+                            <span>{{$t('Housingresources')}} ID：<span>{{houseTypeInfo.id}}</span></span>
                         </div>
                         <!-- 收藏 +　分享-->
                         <!-- <div class="house_share_collection">
@@ -192,7 +192,7 @@
                                 </div>
                             </template>
                             <!-- 买房常见问题 + 租房常见问题 -->
-                            <cell :title="houseParameter.houseType==1 ? $t('RentalprocessFAQ') : $t('BuyerProcessFAQ')" is-link :border-intent="false" :arrow-direction="showContent005 ? 'up' : 'down'"
+                            <cell :title="houseParameter.houseType==1 ? $t('BuyerProcessFAQ') : $t('RentalprocessFAQ')" is-link :border-intent="false" :arrow-direction="showContent005 ? 'up' : 'down'"
                                 @click.native="showContent005 = !showContent005"></cell>
             
                             <template v-if="showContent005">
@@ -331,7 +331,7 @@
                             <div class="appAdvertisinglanguage">
                                     <img :src="appLogo" alt="">
                                     <span>
-                                        <img src="../../static/img/RealEstateDirectL.png" alt="">
+                                        <img :src="RealEstateDirectL" alt="">
                                     </span>
                             </div>
                             <div class="update" v-if="Typesystem==1">
@@ -359,6 +359,7 @@
                 andriodBrowserLogo:require(`../../static/img/androidlogo.png`),
                 Scissorsindication:require(`../../static/img/xianduan.png`),
                 appLogo:require(`../../static/img/logo.png`),
+                RealEstateDirectL:require(`../../static/img/RealEstateDirectL.png`),
                 houseImg: [],
                 houseId: '13215465',
                 houseTypeInfo:{},//房租信息
@@ -481,8 +482,8 @@
         },
         methods: {
              GetUrlParam(paraName) {
-        　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2104&houseType=0";
-        // 　　　　var url = document.location.toString();
+        // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2104&houseType=0";
+        　　　　var url = document.location.toString();
         　　　　var arrObj = url.split("?");
                         console.log(arrObj)
         　　　　if (arrObj.length > 1) {
@@ -532,19 +533,19 @@
                         }
                         //支付节点(固定值)
                         if(this.houseTypeInfo.payNode == 1){
-                            this.$set(this.houseTypeInfo,'payNode',"一张支票")
+                            this.$set(this.houseTypeInfo,'payNode',this.$t('onechequeyear'))
                         }
                         if(this.houseTypeInfo.payNode == 2){
-                            this.$set(this.houseTypeInfo,'payNode',"两张支票")
+                            this.$set(this.houseTypeInfo,'payNode',this.$t('twochequeyear'))
                         }
                         if(this.houseTypeInfo.payNode == 4){
-                            this.$set(this.houseTypeInfo,'payNode',"四张支票")
+                            this.$set(this.houseTypeInfo,'payNode',this.$t('fourchequeyear'))
                         }
                         if(this.houseTypeInfo.payNode == 6){
-                            this.$set(this.houseTypeInfo,'payNode',"六张支票")
+                            this.$set(this.houseTypeInfo,'payNode',this.$t('sixchequeyear'))
                         }
                         if(this.houseTypeInfo.payNode == 12){
-                            this.$set(this.houseTypeInfo,'payNode',"十二张支票")
+                            this.$set(this.houseTypeInfo,'payNode',this.$t('Twelvechequeyear'))
                         }
                         this.getdict(this.houseTypeInfo);
                         this.typeofHouse(this.houseTypeInfo);

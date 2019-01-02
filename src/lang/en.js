@@ -176,6 +176,12 @@ export default {
     Ifpleasecorner:'If you have installed the application, please click on the top right corner',
     SelectOpeninSafari:'Select Open in Safari',
     SelectOpeninBrowser:'Select Openin Browser',
+    Housingresources:'Housing resources',
+    onechequeyear:'1 cheque/year',
+    twochequeyear:'2 cheque/year',
+    fourchequeyear:'4 cheque/year',
+    sixchequeyear:'6 cheque/year',
+    Twelvechequeyear:'12 cheque/year',
     /**
      * 
      * Property Type 房屋类型 PropertyType
