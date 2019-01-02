@@ -56,7 +56,7 @@
                             <li><span>{{houseTypeInfo.houseAcreage}}</span><span>Size in SqFt</span></li>
                         </ul>
                         <ul class="house_info_two">
-                            <li><span class="text_gray">{{$t('Propertytype')}}：</span> <span class="text_333">{{houseTypeInfo.housingTypeDictcode}}</span></li>
+                            <li><span class="text_gray">{{$t('PropertyType')}}：</span> <span class="text_333">{{houseTypeInfo.housingTypeDictcode}}</span></li>
                             <li><span class="text_gray">{{$t('Buildingname')}}：</span> <span class="text_333">{{houseTypeInfo.buildingName}}</span></li>
                             <li><span class="text_gray">{{$t('Floornumber')}}：</span> <span class="text_333">{{houseTypeInfo.houseFloor}}</span></li>
                             <li><span class="text_gray">{{$t('Furnishingcondition')}}：</span> <span class="text_333">{{houseTypeInfo.houseDecorationDictcode==0 ? $t('befurnished') : $t('Nofurnished')}}</span></li>
@@ -483,11 +483,12 @@
         methods: {
              GetUrlParam(paraName) {
         // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2114&houseType=0";
+        // 　　　　var url = "http://120.77.220.25/pages/house/index.html#/wxShare?id=2114&houseType=0";
         　　　　var url = document.location.toString();
         　　　　var arrObj = url.split("?");
                         console.log(arrObj)
         　　　　if (arrObj.length > 1) {
-        　　　　　　var arrPara = arrObj[2].split("&");
+        　　　　　　var arrPara = arrObj[1].split("&");
         　　　　　　var arr;
                     console.log(arrPara)
         　　　　　　for (var i = 0; i < arrPara.length; i++) {
