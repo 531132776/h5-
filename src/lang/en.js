@@ -182,6 +182,7 @@ export default {
     fourchequeyear:'4 cheque/year',
     sixchequeyear:'6 cheque/year',
     Twelvechequeyear:'12 cheque/year',
+    Locationandnearby:'Location and nearby'
     /**
      * 
      * Property Type 房屋类型 PropertyType
