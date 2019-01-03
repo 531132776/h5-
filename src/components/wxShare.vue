@@ -94,6 +94,9 @@
                             <template v-if="showContent002">
                                 <!-- <cell-form-preview :border-intent="false" :list="list"></cell-form-preview> -->
                                 <div class="Housingallocation_A">
+                                    <!-- <div v-if="houseTypeInfo.houseDecorationDictcode==0">
+                                        暂时无数据...
+                                    </div> -->
                                     <ul>
                                         <li v-for="(item,index) in houseA" :key="index">
                                             <div class="li_div_img">
@@ -113,6 +116,9 @@
                             <template v-if="showContent003">
                                 <!-- <cell-box :border-intent="false" class="sub-item">I'm content 003</cell-box> -->
                                 <div class="Housingallocation_A">
+                                    <!-- <div v-if="houseTypeInfo.houseConfigDictcode==0">
+                                            暂时无数据...
+                                    </div> -->
                                     <ul>
                                         <li v-for="(item,index) in houseB" :key="index">
                                             <div class="li_div_img">
@@ -236,9 +242,9 @@
                                 <div class="house_more_list">
                                     <ul>
                                         <!-- 买房状态 -->
-                                        <li v-for="(item,index) in buyhouseRecommend>0 ? buyhouseRecommend : []" @click="updateAppUrl" v-if="houseParameter.houseType==1">
+                                        <li v-for="(item,index) in buyhouseRecommend.length>0 ? buyhouseRecommend : []" @click="updateAppUrl" v-if="houseParameter.houseType==1">
                                             <div class="house_more_list_left">
-                                                <img :src="houseMainImg" alt="">
+                                                <img :src="item.houseMainImg" alt="">
                                             </div>
                                             <div class="house_more_list_right">
                                                 <span class="line_clamp_2">{{item.houseName}}</span>
@@ -252,9 +258,9 @@
                                             </div>
                                         </li>
                                         <!-- 租房状态 -->
-                                        <li v-for="(item,index) in renthouseRecommend>0 ? renthouseRecommend : []" v-if="houseParameter.houseType==0">
+                                        <li v-for="(item,index) in renthouseRecommend.length>0 ? renthouseRecommend : []" v-if="houseParameter.houseType==0" @click="updateAppUrl">
                                                 <div class="house_more_list_left">
-                                                        <img :src="houseMainImg" alt="">
+                                                        <img :src="item.houseMainImg" alt="">
                                                     </div>
                                                     <div class="house_more_list_right">
                                                         <span class="line_clamp_2">{{item.houseName}}</span>
@@ -422,7 +428,8 @@
                 Typeofhouse:'',
                 Applicationmarket:false,//应用市场及run app
                 Typesystem:'',//ios,andiord
-                systemLang:''//zh,en判断
+                systemLang:'',//zh,en判断
+                language:''
             }
         },
         directives: {
@@ -443,6 +450,7 @@
             XButton
         },
         created(){
+            this.$set(this,'language',this.GetUrlParam("language"));
             var _this=this;
             var $body = $('body');
             var $iframe = $('<iframe src="/favicon.ico"></iframe>');
@@ -452,20 +460,22 @@
             }, 0);
             }).appendTo($body);
 
-            if(_this.lang=='zh'){
+            if(this.language==0){
                 document.title = this.$route.meta.titleCn;
                 this.$set(this,'systemLang',0);//中文
-            }else if(_this.lang=='en'){
+                this.$i18n.locale = 'zh'
+            }else if(this.language==1){
                 document.title = this.$route.meta.titleEn;
                 this.$set(this,'systemLang',1);//英文
+                this.$i18n.locale = 'en'
             }else{
                 document.title = this.$route.meta.titleEn;
                 this.$set(this,'systemLang',1)//英文
+                this.$i18n.locale = 'en'
             }
             this.isWeiXin();//判断是否微信浏览器
         },
         mounted() {
-            console.log(this.$route.params.id)
             //google Map
             this.initialize();
             google.maps.event.addDomListener(window, 'load', this.initialize());
@@ -476,6 +486,7 @@
             
             this.$set(this.houseParameter,'id',this.GetUrlParam("id"));
             this.$set(this.houseParameter,'houseType',this.GetUrlParam("houseType"));
+            console.log('房源类型(0是租房，1是买房)：'+this.houseParameter.houseType)
             this.Typeofhouse = this.houseParameter.houseType;
             //获取房屋详情
             this.getHouseDetail();
@@ -483,7 +494,7 @@
         methods: {
              GetUrlParam(paraName) {
         // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2114&houseType=0";
-        // 　　　　var url = "http://120.77.220.25/pages/house/index.html#/wxShare?id=2114&houseType=0";
+        // 　　　　var url = "http://120.77.220.25/pages/house/index.html#/wxShare?id=2114&houseType=0&language=0";
         　　　　var url = document.location.toString();
         　　　　var arrObj = url.split("?");
                         console.log(arrObj)
@@ -518,19 +529,35 @@
                         var a = this.houseTypeInfo.beginRentDate;
                         var newa = a.split(" ");
                         this.$set(this.houseTypeInfo,'beginRentDate',newa[0]);
-                        //租房状态的常见问题
-                        var RentArticlesList = res.dataSet.faq.hs_app_index_buyer_rent_question_en.articlesList || [];
+                        if(this.language==0){
+                            //租房状态的常见问题
+                            var RentArticlesList = res.dataSet.faq.hs_app_index_buyer_rent_question_cn.articlesList || [];
                         
-                        //买房状态的常见问题
-                        var BuyArticlesList = res.dataSet.faq.hs_app_index_buyer_buy_question_en.articlesList || [];
+                            //买房状态的常见问题
+                            var BuyArticlesList = res.dataSet.faq.hs_app_index_buyer_buy_question_cn.articlesList || [];
+                        }else if(this.language==1){
+                            //租房状态的常见问题
+                            var RentArticlesList = res.dataSet.faq.hs_app_index_buyer_rent_question_en.articlesList || [];
+                        
+                            //买房状态的常见问题
+                            var BuyArticlesList = res.dataSet.faq.hs_app_index_buyer_buy_question_en.articlesList || [];
+                        }else{
+                            //租房状态的常见问题
+                            var RentArticlesList = res.dataSet.faq.hs_app_index_buyer_rent_question_en.articlesList || [];
+                        
+                            //买房状态的常见问题
+                            var BuyArticlesList = res.dataSet.faq.hs_app_index_buyer_buy_question_en.articlesList || [];
+                        }
+                        
                         
                         //houseTyp 0：租房; 1：买房
                         if(this.houseParameter.houseType == 0){
-                            this.RentArticlesList = RentArticlesList
+                            // this.RentArticlesList = RentArticlesList
+                            this.$set(this,'RentArticlesList',RentArticlesList)
 
                         }else if(this.houseParameter.houseType == 1){
-                            this.BuyArticlesList = BuyArticlesList;
-                            // this.$set(this,BuyArticlesList,BuyArticlesList)
+                            // this.BuyArticlesList = BuyArticlesList;
+                            this.$set(this,'BuyArticlesList',BuyArticlesList)
                         }
                         //支付节点(固定值)
                         if(this.houseTypeInfo.payNode == 1){
@@ -564,7 +591,12 @@
                     var arr= [];
                     arr = res.dataSet.items;
                     var findVal = arr.find(item => { return item.id == houseTypeInfo.housingStatus})
-                    this.$set(this.houseTypeInfo,'housingStatus',findVal.itemValue);
+                    
+                    if(this.language==0){
+                        this.$set(this.houseTypeInfo,'housingStatus',findVal.itemValue);
+                    }else if(this.language==1){
+                        this.$set(this.houseTypeInfo,'housingStatus',findVal.itemValueEn);
+                    }
                 }).catch(err => {
                     console.log(err)
                 })
@@ -576,7 +608,12 @@
                     var arr= [];
                     arr = res.dataSet.items;
                     var findVal = arr.find(item => { return item.id == houseTypeInfo.housingTypeDictcode})
-                    this.$set(this.houseTypeInfo,'housingTypeDictcode',findVal.itemValue);
+                    if(this.language==0){
+                        this.$set(this.houseTypeInfo,'housingTypeDictcode',findVal.itemValue);
+                    }else if(this.language==1){
+                        this.$set(this.houseTypeInfo,'housingTypeDictcode',findVal.itemValueEn);
+                    }
+                    
                 }).catch(err => {
                     console.log(err)
                 })
@@ -872,6 +909,10 @@
                 width: 60%;
                 background:#F16622;
                 font-size: .31rem;
+                color: #fff;
+            }
+            .weui-btn_default:not(.weui-btn_disabled):active{
+                background-color: rgb(224, 98, 35);
                 color: #fff;
             }
         }
@@ -1198,7 +1239,7 @@
 
                             span {
                                 font-size: .24rem;
-                                height: auto;
+                                /* height: auto; */
                             }
                         }
                         li:nth-of-type(even){
@@ -1414,4 +1455,16 @@
             }
         }
     }
+    @media screen and (max-width: 320px){
+        .Process_introduction ul li span {
+            height: auto !important;
+        }
+    }
+    @media screen and (max-width: 380px) and (min-width: 320px){
+        .Process_introduction ul li span {
+            height: .9rem !important;
+        }
+    }
+
+    
 </style>
