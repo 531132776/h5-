@@ -111,6 +111,7 @@ export default {
     Parking:'Parking',
     Moveindate:'Move-in date',
     Address:'Address',
+    Unitstatus:'Occupancy status',
     FacilitiesandhomeapplicancesA:'Facilities and home applicances A',
     FacilitiesandhomeapplicancesB:'Facilities and home applicances B',
     RentalProcess:'Rental Process',
@@ -119,7 +120,7 @@ export default {
     BuyerProcessFAQ:'Buyer Process FAQ',
     Ourreconmmendation:'Our reconmmendation',
     befurnished:'Befurnished',
-    Nofurnished:'Nofurnished',
+    Nofurnished:'Unfurnished',
     Maidsroom:'Maids room',
     Studyroom:'Study room',
     Storageroom:'Storage room',
@@ -182,7 +183,11 @@ export default {
     fourchequeyear:'4 cheque/year',
     sixchequeyear:'6 cheque/year',
     Twelvechequeyear:'12 cheque/year',
-    Locationandnearby:'Location and nearby'
+    Locationandnearby:'Location and nearby',
+    Yes:'Yes',
+    No:'No',
+    Housingsourcenumber:'House ID',
+    Year:'Year'
     /**
      * 
      * Property Type 房屋类型 PropertyType

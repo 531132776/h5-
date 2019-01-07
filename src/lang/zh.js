@@ -183,6 +183,10 @@ export default {
     fourchequeyear:'四张支票',
     sixchequeyear:'六张支票',
     Twelvechequeyear:'十二张支票',
+    Yes:'有',
+    No:'无',
+    Housingsourcenumber:'房源编号',
+    Year:'年'
     /**
      * 
      * Property Type 房屋类型 PropertyType

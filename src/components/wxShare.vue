@@ -8,9 +8,9 @@
                             </swiper-item>
                         </swiper>
             
-                        <div class="house_id">
+                        <!-- <div class="house_id">
                             <span>{{$t('Housingresources')}} ID：<span>{{houseTypeInfo.id}}</span></span>
-                        </div>
+                        </div> -->
                         <!-- 收藏 +　分享-->
                         <!-- <div class="house_share_collection">
                             <div class="Collection_house" @click="collectionSuccess">
@@ -26,10 +26,13 @@
                         <!-- 买房状态 -->
                         <span v-if="houseParameter.houseType==1">{{houseTypeInfo.formatPrice}} AED</span>
                         <!-- 租房状态 -->
-                        <span v-if="houseParameter.houseType==0">{{houseTypeInfo.formatPrice}} AED/Year</span>
+                        <span v-if="houseParameter.houseType==0">{{houseTypeInfo.formatPrice}} AED/{{$t('Year')}}</span>
                     </div>
                     
                     <ul class="house_rera">
+                        <li>
+                            <span>{{$t('Housingsourcenumber')}}：{{houseTypeInfo.houseCode}}</span>
+                        </li>
                         <li>
                             <span>RERA permit NO：{{houseTypeInfo.reraPermitNo}}</span>
                             <span></span>
@@ -50,7 +53,7 @@
                     <div class="house_info">
                         <ul class="house_info_one">
                             <li>
-                                <span>{{houseTypeInfo.bedroomNum}}</span><span>Bedroom</span>
+                                <span>{{houseTypeInfo.bedroomNum==100 ? $t('studio') : houseTypeInfo.bedroomNum}}</span><span>Bedroom</span>
                             </li>
                             <li><span>{{houseTypeInfo.bathroomNum}}</span><span>Batnrooms</span></li>
                             <li><span>{{houseTypeInfo.houseAcreage}}</span><span>Size in SqFt</span></li>
@@ -65,8 +68,8 @@
                             <!-- 买房状态 -->
                             <li v-if="houseParameter.houseType==1"><span class="text_gray">{{$t('Unitstatus')}}：</span> <span class="text_333">{{houseTypeInfo.housingStatus}}</span></li>
             
-                            <li><span class="text_gray">{{$t('Parking')}}：</span> <span class="text_333">{{houseTypeInfo.parkingSpace==0?"Yes":"No"}}</span></li>
-                            <li><span class="text_gray">{{$t('Moveindate')}}：</span> <span class="text_333">{{houseTypeInfo.beginRentDate}}</span></li>
+                            <li><span class="text_gray">{{$t('Parking')}}：</span> <span class="text_333">{{houseTypeInfo.parkingSpace==1?$t('Yes'):$t('No')}}</span></li>
+                            <li v-if="houseParameter.houseType==0"><span class="text_gray">{{$t('Moveindate')}}：</span> <span class="text_333">{{houseTypeInfo.beginRentDate}}</span></li>
                             <li><span class="text_gray">{{$t('Address')}}：</span> <span class="text_333">{{houseTypeInfo.address}}</span></li>
                         </ul>
                     </div>
@@ -242,7 +245,7 @@
                                 <div class="house_more_list">
                                     <ul>
                                         <!-- 买房状态 -->
-                                        <li v-for="(item,index) in buyhouseRecommend.length>0 ? buyhouseRecommend : []" @click="updateAppUrl" v-if="houseParameter.houseType==1">
+                                        <li v-for="(item,index) in buyhouseRecommend" @click="updateAppUrl" v-if="houseParameter.houseType==1">
                                             <div class="house_more_list_left">
                                                 <img :src="item.houseMainImg" alt="">
                                             </div>
@@ -254,11 +257,11 @@
                                                         <i><img src="../../static/img/map.png" alt=""></i> 
                                                         <i>{{item.address}}</i> </span>
                                                 </p>
-                                                <span class="bot_price">{{item.houseRent}} AED</span>s
+                                                <span class="bot_price">{{item.formatPrice}} AED</span>
                                             </div>
                                         </li>
                                         <!-- 租房状态 -->
-                                        <li v-for="(item,index) in renthouseRecommend.length>0 ? renthouseRecommend : []" v-if="houseParameter.houseType==0" @click="updateAppUrl">
+                                        <li v-for="(item,index) in renthouseRecommend" v-if="houseParameter.houseType==0" @click="updateAppUrl">
                                                 <div class="house_more_list_left">
                                                         <img :src="item.houseMainImg" alt="">
                                                     </div>
@@ -270,7 +273,7 @@
                                                                 <i><img src="../../static/img/map.png" alt=""></i> 
                                                                 <i>{{item.address}}</i> </span>
                                                         </p>
-                                                        <span class="bot_price">{{item.houseRent}} AEC/YEAR</span>
+                                                        <span class="bot_price">{{item.formatPrice}} AED/{{$t('Year')}}</span>
                                                     </div>
                                         </li>
                                         
@@ -319,7 +322,7 @@
             <div v-transfer-dom>
                     <popup v-model="Applicationmarket" position="top">
                       <div class="Applicationmarket">
-                            <div class="TipsIndes">
+                            <div class="TipsIndes" v-if="noWxBrowser">
                                 <ul>
                                     <li>{{$t('Ifpleasecorner')}}...</li>
                                     <li v-if="Typesystem==1">{{$t('SelectOpeninSafari')}}</li>
@@ -369,13 +372,13 @@
                 houseImg: [],
                 houseId: '13215465',
                 houseTypeInfo:{},//房租信息
-                showContent001: false,
-                showContent002: false,
-                showContent003: false,
-                showContent004: false,
-                showContent005: false,
+                showContent001: true,
+                showContent002: true,
+                showContent003: true,
+                showContent004: true,
+                showContent005: true,
                 showContent006: [...false],
-                moreHouse: false,
+                moreHouse: true,
                 houseA: houseAimg.images,//房源配置A
                 houseB: houseAimg2.images2,//房源配置B
                 common_problem: commonProblem.textAll,//房源问题提问及回答
@@ -419,7 +422,6 @@
                 houseParameter:{
                     id:'',
                     houseType:'',
-                    token: this.token
                 },
                 longitude:'',//经度
                 latitude:'',//纬度
@@ -429,7 +431,10 @@
                 Applicationmarket:false,//应用市场及run app
                 Typesystem:'',//ios,andiord
                 systemLang:'',//zh,en判断
-                language:''
+                language:'',
+                noWxBrowser:true,
+                token1:'',
+                city1:''
             }
         },
         directives: {
@@ -473,33 +478,52 @@
                 this.$set(this,'systemLang',1)//英文
                 this.$i18n.locale = 'en'
             }
-            this.isWeiXin();//判断是否微信浏览器
-        },
-        mounted() {
-            //google Map
-            this.initialize();
-            google.maps.event.addDomListener(window, 'load', this.initialize());
-            
-            // this.getdict();
-            //推荐房源
-            this.houseRecommend();
-            
+
+// var str = 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEtMjU2In0=.eyJpc3MiOiJtXzIwMTgxMjA2MjMxODQwODA0IiwiZXhwIjoiRGVjIDI5LCAyMDE4IDM6MDc6NDkgUE0iLCJ1c2VySWQiOiI0NjMxIiwiYXJlYUNvZGUiOiI4NiIsIm1vYmxlIjoiMTg5MjY0ODQ5NzEifQ==.OWNjMWViODE0NGM0NjUwMGUxNGE2NmFlZGE3ZjVmOWE1NjE2MjhhNGYxNWUzYmUyYjMyMmZiZDE3N2NlMTg0ZA==&language=zh&city=shenzhen'
+
+// var token = str.substring(str.indexOf('token=')+6,str.indexOf('&language='))=='http:'?"":str.substring(str.indexOf('token=')+6,str.indexOf('&language='))//截取token
+// this.houseParameter.token = token;
+// this.token1 = token;
+// var city = str.indexOf('&city=')==-1?"":str.substr(str.indexOf('&city=')+6);//截取城市
+// this.city1 = city
+
             this.$set(this.houseParameter,'id',this.GetUrlParam("id"));
             this.$set(this.houseParameter,'houseType',this.GetUrlParam("houseType"));
-            console.log('房源类型(0是租房，1是买房)：'+this.houseParameter.houseType)
+            
+            //推荐房源
+            this.houseRecommend();
             this.Typeofhouse = this.houseParameter.houseType;
+            
+        },
+        mounted() {
+            // var ua = navigator.userAgent.toLowerCase();
+            // alert(ua)
+            // if(ua.indexOf('nettype')>-1 && ua.indexOf('webp') > -1){
+                // alert(1)
+            // }if(ua.indexOf('nettype') == -1 && ua.indexOf("webp") == -1){
+              //qq浏览器
+            //   alert(2)
+        //   }
+            //google Map
             //获取房屋详情
             this.getHouseDetail();
+            
         },
         methods: {
              GetUrlParam(paraName) {
-        // 　　　　var url = "http://192.168.0.108:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2114&houseType=0";
-        // 　　　　var url = "http://120.77.220.25/pages/house/index.html#/wxShare?id=2114&houseType=0&language=0";
-        　　　　var url = document.location.toString();
+                //var url = "http://192.168.0.254:8099/?from=singlemessage#/wxShare?id=2116&houseType=1&language=0";
+                // var url = 'http://192.168.0.254:8099/?from=singlemessage&isappinstalled=0#/wxShare?id=2076&houseType=1&language=0'
+                // var url = 'http://192.168.0.254:8099/?#/wxShare?id=2076&houseType=1&language=0'
+        　　　　var url = window.location.href;
+                // alert(url)
         　　　　var arrObj = url.split("?");
-                        console.log(arrObj)
-        　　　　if (arrObj.length > 1) {
-        　　　　　　var arrPara = arrObj[1].split("&");
+                        // alert(arrObj)
+        　　　　if (arrObj.length > 0) {
+                        if(url.indexOf('from') != -1){
+                            var arrPara = arrObj[2].split("&");
+                        }else {
+                            var arrPara = arrObj[1].split("&");
+                        }
         　　　　　　var arr;
                     console.log(arrPara)
         　　　　　　for (var i = 0; i < arrPara.length; i++) {
@@ -518,17 +542,31 @@
            
             //获取房屋详情
             getHouseDetail(){
-                console.log(this.houseParameter)
-                this.$axios.post(`/api/exterior/houses/getHouseDetail`,this.$qs.stringify(this.houseParameter)).then(res => {
-                    console.log(res)
+                // console.log(this.houseParameter)
+                this.$axios.post('/api/exterior/houses/getHouseDetail',this.$qs.stringify(this.houseParameter)).then(res => {
+                    // console.log(res)
                     if(res.result == 0){
-                        this.houseTypeInfo = res.dataSet.houses || [];
+                        this.houseTypeInfo = res.dataSet.houses || {};
                         this.houseImg = res.dataSet.houseSubImg || [];
-                        this.houseTypeInfo.longitude = this.longitude;//经度
-                        this.houseTypeInfo.latitude = this.latitude;//纬度
+
+                        this.$set(this,'latitude',this.houseTypeInfo.latitude)
+                        this.$set(this,'longitude',this.houseTypeInfo.longitude)
+                        console.log(this.longitude,this.latitude,'狗粉丝的风格')
+                        this.initialize(this.longitude,this.latitude)
+                        google.maps.event.addDomListener(window, 'load', this.initialize(this.longitude,this.latitude));
+
                         var a = this.houseTypeInfo.beginRentDate;
-                        var newa = a.split(" ");
-                        this.$set(this.houseTypeInfo,'beginRentDate',newa[0]);
+                        // alert(this.houseTypeInfo.beginRentDate)
+                        if(this.houseTypeInfo.beginRentDate != null){
+                            var newa = a.split(" ");
+                            this.$set(this.houseTypeInfo,'beginRentDate',newa[0]);
+                        }
+                        else{
+                            console.log(a)
+                        }
+                            // this.renthouseRecommend = res.dataSet.recommendHouses.rent || [];//租房房源推荐
+                            // this.buyhouseRecommend = res.dataSet.recommendHouses.sell || [];//买房房源推荐
+                        this.getFloatStr(this.houseTypeInfo.houseAcreage)
                         if(this.language==0){
                             //租房状态的常见问题
                             var RentArticlesList = res.dataSet.faq.hs_app_index_buyer_rent_question_cn.articlesList || [];
@@ -575,8 +613,8 @@
                         if(this.houseTypeInfo.payNode == 12){
                             this.$set(this.houseTypeInfo,'payNode',this.$t('Twelvechequeyear'))
                         }
-                        this.getdict(this.houseTypeInfo);
-                        this.typeofHouse(this.houseTypeInfo);
+                        this.getdict(this.houseTypeInfo);//房屋状态
+                        this.typeofHouse(this.houseTypeInfo);//房屋类型
                         this.Houseimgallocation(this.houseTypeInfo);//房源配置
                         this.HouseimgMatching(this.houseTypeInfo);//房源配套
                     }
@@ -584,6 +622,22 @@
                     console.log(err)
                 }).finally(() => this.$vux.loading.hide()); 
             },
+            
+            getFloatStr(num){
+                            num += '';  
+                            num = num.replace(/[^0-9|\.]/g, ''); //清除字符串中的非数字非.字符  
+                            if(/^0+/) //清除字符串开头的0  
+                               num = num.replace(/^0+/, '');  
+                           if(!/\./.test(num)) //为整数字符串在末尾添加.00  
+                                num += '.00';  
+                            if(/^\./.test(num)) //字符以.开头时,在开头添加0  
+                                num = '0' + num;  
+                            num += '00';        //在字符串末尾补零  
+                           num = num.match(/\d+\.\d{2}/)[0];
+                           console.log(num)
+                           this.$set(this.houseTypeInfo,'houseAcreage',num)
+                        },
+                        
             //房屋状态
             getdict(houseTypeInfo){
                 var type=2
@@ -647,7 +701,7 @@
             },
             //房屋配套A
             HouseimgMatching(houseTypeInfo){
-                console.log(houseTypeInfo.houseDecorationDictcode)
+                console.log(houseTypeInfo.houseSelfContainedDictcode)
                 var type=3
                 this.$axios.post('/api/exterior/get/dict/'+`${type}`).then(res =>{
                     console.log('房屋配套A:',res);
@@ -655,7 +709,7 @@
                     var houseA = this.houseA;
                     var houseimg = [];
                     var arr = [];
-                    houseimg = houseTypeInfo.houseDecorationDictcode.split(',');
+                    houseimg = houseTypeInfo.houseSelfContainedDictcode.split(',');
                     // console.log(houseimg)
                     for(var n in houseimg){
                         if(houseimg[n] == houseA[n].id){
@@ -676,7 +730,7 @@
             },
             //房源推荐
             houseRecommend(){
-                this.$axios.post('/api/exterior/member/recommendHouses',this.$qs.stringify({token:this.token,city:this.city})).then(res => {
+                this.$axios.post('/api/exterior/member/recommendHouses',this.$qs.stringify({token:'',city:''})).then(res => {
                     console.log(res)
                     this.renthouseRecommend = res.dataSet.rent || [];//租房房源推荐
                     this.buyhouseRecommend = res.dataSet.sell || [];//买房房源推荐
@@ -687,16 +741,15 @@
             //展开地图
             googleMap() {
                 this.showContent001 = !this.showContent001;
-                this.showContent001 ? this.initialize() : null;
+                // this.showContent001 ? this.initialize(this.longitude,) : null;
             },
             //map 地图
-            initialize() {
-                // var myCenter = new google.maps.LatLng(51.508742, -0.120850);
-                // console.log(this.longitude,this.latitude)
-                var myCenter = new google.maps.LatLng(this.longitude, this.latitude);//经纬度
+            initialize(longitude,latitude) {
+                console.log(latitude,longitude)
+                var myCenter = new google.maps.LatLng(latitude,longitude);//经纬度
                 var mapProp = {
                     center: myCenter,
-                    zoom: 5,
+                    zoom: 14,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
 
@@ -748,41 +801,35 @@
 
             //跳转到APP install页面
             updateAppUrl() {
-                this.Applicationmarket = true;
+                this.Applicationmarket = true;//打开应用市场提示弹窗
                 var that = this;
-                if(that.isAndroid){
+                if(this.isAndroid){
                     this.$set(this,'Typesystem',0);
-                    // alert('安卓系统'+'isAndroid')
-                    // window.location.href = "hisandy"//andiord app协议
-                    // window.setTimeout(function() {
-                    //     window.location.href = "https://play.google.com/store/apps/details?id=com.ucinternational"
-                    // }, 2000)
-                    if(this.isWeiXin()){
-                        console.log('weixin')
-                    }else{
-                        window.location.href = "hisandy://ucinternational.com"//andiord app协议
-                        window.setTimeout(function() {
-                            window.location.href = "https://play.google.com/store/apps/details?id=com.ucinternational"
-                        }, 2000)
-
-                    }
-                }if(that.isiOS){
+                            window.location.href = "hisandy://ucinternational.com"
+                            window.setTimeout(function() {
+                                window.location.href = "https://play.google.com/store/apps/details?id=com.ucinternational"
+                            }, 2000)
+                }else if(this.isiOS){
                     this.$set(this,'Typesystem',1);
-                    // alert('ios系统'+'isiOS');
-                    // window.location.href = "HiSandy://"//ios app协议
-                    // window.setTimeout(function() {
-                    //     window.location.href = "https://itunes.apple.com/us/app/hisandy-real-estate/id1434680051"
-                    // }, 2000)
-                    if(this.isWeiXin()){
-                        console.log('weixin')
-                    }else{
-                        window.location.href = "HiSandy://"//ios app协议
-                        window.setTimeout(function() {
-                            window.location.href = "https://itunes.apple.com/us/app/hisandy-real-estate/id1434680051"
-                        }, 2000)
-                    }
+                    //ios app协议
+                            window.location.href = "HiSandy://"
+                            window.setTimeout(function() {
+                                window.location.href = "https://itunes.apple.com/us/app/hisandy-real-estate/id1434680051"
+                            }, 2000)
+                }else {
+                    this.$set(this,'Typesystem',0);
+                            window.location.href = "hisandy://ucinternational.com"
+                            window.setTimeout(function() {
+                                window.location.href = "https://play.google.com/store/apps/details?id=com.ucinternational"
+                            }, 2000)
                 }
                 
+                // if(this.isWeiXin() && this.isQQ() && isFaceBook()){
+                //         console.log('weixin')
+                //         this.noWxBrowser = true;
+                //     }else{
+                //         this.noWxBrowser = false;
+                //     }
             },
             //判断是否是微信浏览器的函数
             isWeiXin(){
@@ -790,19 +837,37 @@
                 var ua = window.navigator.userAgent.toLowerCase();
                 //通过正则表达式匹配ua中是否含有MicroMessenger字符串
                 if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-                return true;
+                    return true;
                 }else{
-                return false;
+                    return false;
+                }
+            },
+            isQQ(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                if(ua.match(/QQ/i) == "qq") {
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+            isFaceBook(){
+                var aa = window.navigator.userAgent.toLowerCase();
+                if(aa.indexOf('fbop') != -1){
+                    return true;
+                }else{
+                    return false;
                 }
             },
             iosApp(){
-                window.location.href = "HiSandy://"//ios app协议
+                //ios app协议
+                    window.location.href = "HiSandy://"
                     window.setTimeout(function() {
                         window.location.href = "https://itunes.apple.com/us/app/hisandy-real-estate/id1434680051"
                     }, 2000)
             },
             andiordApp(){
-                window.location.href = "hisandy://ucinternational.com"//andiord app协议
+                //andiord app协议
+                    window.location.href = "hisandy://ucinternational.com"
                     window.setTimeout(function() {
                         window.location.href = "https://play.google.com/store/apps/details?id=com.ucinternational"
                     }, 2000)
@@ -866,13 +931,17 @@
 </script>
 <style lang="scss">
     .Applicationmarket{
-        background: url('../../static/img/bgimg.png') no-repeat;
         height: 6.6rem;
-        background-size: cover;
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-around;
         align-content: center;
+        background: -webkit-linear-gradient(left,#D56939, #784329); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right,#D56939, #784329,); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right,#D56939, #784329,); /* Firefox 3.6 - 15 */
+        background: linear-gradient(right,#D56939, #784329,); /* 标准写法 */
+        background: url('../../static/img/bgimg.png') no-repeat;
+        background-size: cover;
         .TipsIndes{
             display:flex;
             flex-flow:row nowrap;
@@ -896,6 +965,7 @@
             flex-flow: column nowrap;
             justify-content: center;
             align-items: center;
+            
             span{
                 padding-top: .2rem;
             }
@@ -1071,8 +1141,8 @@
                             .vux-label{
                                 width: 100%;
                                 overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
+                                /* white-space: nowrap; */
+                                text-overflow: ellipsis;
                             }
                         }
                     }
@@ -1262,6 +1332,7 @@
                         display: flex;
                         flex-flow: row nowrap;
                         position: relative;
+                        
                         &:after{
                             position: absolute;
                             bottom: 0;
@@ -1274,17 +1345,23 @@
                             content: "";
                         }
                         .house_more_list_left{
-                            width: 7.66rem;
+                            width: 6.66rem;
                             /* height: 1.84rem;  */
                             margin-right: .31rem;
+                            height: 2.3rem;
+                            border-radius: 0.15rem;
+                            overflow: hidden;
                             img{
                                 display: block;
                                 width: 100%;
+                                /* height: 100%; */
+                                border-radius: 0.15rem;
                             }
                         }
                         .house_more_list_right{
                             display: flex;
                             flex-flow: column nowrap;
+                            flex: 1 1 100%;
                             .line_clamp_2{
                                 color: #333;
                                 font-size: .31rem;
@@ -1303,8 +1380,10 @@
                                 padding: .14rem 0;
                                 span:nth-child(1){
                                     padding-right: .24rem;
+                                    width:33%;
                                 }
                                 span:nth-child(2){
+                                    width:67%;
                                     img{
                                         width: .2rem;
                                         height: .28rem;

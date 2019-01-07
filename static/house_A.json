@@ -3,32 +3,32 @@
         {
             "src":"./house_A/1.png",
             "text":"佣人房",
-            "text2":"Maids room",
+            "text2":"maids room",
             "id":"20077"
         },
         {
             "src":"./house_A/2.png",
             "text":"书房",
-            "text2":"Study room",
+            "text2":"study room",
             "id":"20078"
         },
 
         {
             "src":"./house_A/3.png",
             "text":"储储间",
-            "text2":"Storageroom",
+            "text2":"storage room",
             "id":"20079"
         },
         {
             "src":"./house_A/4.png",
             "text":"阳台",
-            "text2":"Balcony",
+            "text2":"balcony",
             "id":"20080"
         },
         {
             "src":"./house_A/5.png",
             "text":"礼宾服务",
-            "text2":"Concierge",
+            "text2":"concierge",
             "id":"20081"
         },
         {
@@ -46,25 +46,25 @@
         {
             "src":"./house_A/8.png",
             "text":"允许宠物",
-            "text2":"Pets alloewd",
+            "text2":"pets alloewd",
             "id":"20084"
         },
         {
             "src":"./house_A/9.png",
             "text":"嵌入式衣柜",
-            "text2":"Built in Wardrobes",
+            "text2":"built in Wardrobes",
             "id":"20085"
         },
         {
             "src":"./house_A/10.png",
             "text":"健身房",
-            "text2":"Gym",
+            "text2":"gym",
             "id":"20086"
         },
         {
             "src":"./house_A/11.png",
             "text":"泳池",
-            "text2":"swimming Poll",
+            "text2":"swimming poll",
             "id":"20087"
         },
         {
@@ -75,14 +75,14 @@
         },
         {
             "src":"./house_A/13.png",
-            "text":"私人花园",
-            "text2":"Garden",
+            "text":"衣帽间",
+            "text2":"walk-in Closet",
             "id":"20089"
         },
         {
             "src":"./house_A/14.png",
-            "text":"衣帽间",
-            "text2":"WalkinCloset",
+            "text":"私人花园",
+            "text2":"garden",
             "id":"20090"
         }
     ]
