@@ -322,33 +322,37 @@
             <div v-transfer-dom>
                     <popup v-model="Applicationmarket" position="top">
                       <div class="Applicationmarket">
-                            <div class="TipsIndes" v-if="noWxBrowser">
-                                <ul>
-                                    <li>{{$t('Ifpleasecorner')}}...</li>
-                                    <li v-if="Typesystem==1">{{$t('SelectOpeninSafari')}}</li>
-                                    <li v-if="Typesystem==0">{{$t('SelectOpeninBrowser')}}</li>
-                                </ul>
-                                <!-- ios,andriod浏览器logo -->
-                                <div>
-                                    <img v-if="Typesystem==1" :src="iosBrowserLogo" alt="">
-                                    <img v-if="Typesystem==0" :src="andriodBrowserLogo" alt="">
+                          <!-- 背景img -->
+                            <img :src="UpdateTipsBgImg" alt="">
+                            <div class="custom_h">
+                                <div class="TipsIndes" v-if="noWxBrowser">
+                                    <ul>
+                                        <li>{{$t('Ifpleasecorner')}}...</li>
+                                        <li v-if="Typesystem==1">{{$t('SelectOpeninSafari')}}</li>
+                                        <li v-if="Typesystem==0">{{$t('SelectOpeninBrowser')}}</li>
+                                    </ul>
+                                    <!-- ios,andriod浏览器logo -->
+                                    <div>
+                                        <img v-if="Typesystem==1" :src="iosBrowserLogo" alt="">
+                                        <img v-if="Typesystem==0" :src="andriodBrowserLogo" alt="">
+                                    </div>
+                                    <div>
+                                        <img :src="Scissorsindication" alt="">
+                                    </div>
                                 </div>
-                                <div>
-                                    <img :src="Scissorsindication" alt="">
+                                <div class="appAdvertisinglanguage">
+                                        <img :src="appLogo" alt="">
+                                        <span>
+                                            <img :src="RealEstateDirectL" alt="">
+                                        </span>
                                 </div>
-                            </div>
-                            <div class="appAdvertisinglanguage">
-                                    <img :src="appLogo" alt="">
-                                    <span>
-                                        <img :src="RealEstateDirectL" alt="">
-                                    </span>
-                            </div>
-                            <div class="update" v-if="Typesystem==1">
-                                <x-button class="btn" @click.native="iosApp">{{$t('DownloadfromAppstore')}}</x-button>
-                            </div>
-                            <div class="update" v-if="Typesystem==0">
-                                    <x-button class="btn" @click.native="andiordApp">{{$t('DownloadtotheGoogleAppMarket')}}</x-button>
+                                <div class="update" v-if="Typesystem==1">
+                                    <x-button class="btn" @click.native="iosApp">{{$t('DownloadfromAppstore')}}</x-button>
                                 </div>
+                                <div class="update" v-if="Typesystem==0">
+                                        <x-button class="btn" @click.native="andiordApp">{{$t('DownloadtotheGoogleAppMarket')}}</x-button>
+                                    </div>
+                            </div>
                       </div>
                     </popup>
                   </div>
@@ -393,6 +397,7 @@
                 OnlineBargainingImg: require(`../../static/Process_introduction/icon_2copy.png`),
                 Contractpayment: require(`../../static/Process_introduction/icon_3copy.png`),
                 TransferofTitle: require(`../../static/Process_introduction/icon_4copy.png`),
+                UpdateTipsBgImg: require(`../../static/img/bgimg.png`),
                 reportleft: require(`../../static/img/jubao2.png`),
                 reportright: require(`../../static/img/jb.png`),
                 twitterImg: require(`../../static/img/twitter3.png`),
@@ -940,8 +945,20 @@
         background: -o-linear-gradient(right,#D56939, #784329,); /* Opera 11.1 - 12.0 */
         background: -moz-linear-gradient(right,#D56939, #784329,); /* Firefox 3.6 - 15 */
         background: linear-gradient(right,#D56939, #784329,); /* 标准写法 */
-        background: url('../../static/img/bgimg.png') no-repeat;
-        background-size: cover;
+        /* background: url('../../static/img/bgimg.png') no-repeat; */
+        /* background-size: cover; */
+        position: relative;
+        .custom_h{
+            position: absolute;
+            right: 0;
+            left: 0;
+            top:0;
+            bottom: 0;
+            z-index: 111;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-flow: column nowrap;
         .TipsIndes{
             display:flex;
             flex-flow:row nowrap;
@@ -952,10 +969,13 @@
                 display: flex;
                 flex-flow: column nowrap;
                 padding: 0 .24rem;
+                flex:1 1;
                 li{
                     padding: .1rem 0;
                     color:#fff;
                     font-size: .28rem;
+                    white-space: pre-wrap;
+                    overflow: hidden;
                 }
             }
         }
@@ -976,7 +996,7 @@
             align-items: center;
             color: #fff;
             .btn{
-                width: 60%;
+                width: auto;
                 background:#F16622;
                 font-size: .31rem;
                 color: #fff;
@@ -986,6 +1006,7 @@
                 color: #fff;
             }
         }
+    }
     }
     #latLng {
         transform: translateX(-25%);
